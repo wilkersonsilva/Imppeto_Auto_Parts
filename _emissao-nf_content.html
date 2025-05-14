@@ -1,0 +1,177 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Emissão de Nota Fiscal Eletrônica (NF-e)
+            </h2>
+            <button onclick="listarNotasFiscais()" class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center">
+                <i class="fas fa-receipt fa-fw mr-2"></i>Listar NF-e Emitidas
+            </button>
+        </div>
+
+        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-medium text-gray-800 dark:text-gray-100 mb-2">Carregar Dados de Pedido de Venda</h3>
+            <div class="flex flex-col sm:flex-row items-end gap-3">
+                <div class="grow">
+                    <label for="nfe-pedido-origem" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nº do Pedido de Venda</label>
+                    <input type="text" id="nfe-pedido-origem" class="mt-1 block w-full input-form" placeholder="Digite o número do pedido...">
+                </div>
+                <button type="button" onclick="carregarDadosDoPedidoParaNFe()" class="w-full sm:w-auto px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-400 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-search fa-fw mr-2"></i>Carregar Pedido
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Ou preencha os dados manualmente abaixo.</p>
+        </div>
+
+        <form id="form-emissao-nfe" class="space-y-6">
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Dados Gerais da NF-e</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                    <div>
+                        <label for="nfe-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número NF-e</label>
+                        <input type="text" name="nfe-numero" id="nfe-numero" readonly class="mt-1 block w-full input-form bg-gray-100 dark:bg-gray-700/50" placeholder="(Gerado após autorização)">
+                    </div>
+                    <div>
+                        <label for="nfe-serie" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Série<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="nfe-serie" id="nfe-serie" required value="1" class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-data-emissao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data/Hora Emissão<span class="text-error ml-1">*</span></label>
+                        <input type="datetime-local" name="nfe-data-emissao" id="nfe-data-emissao" required class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-natureza-operacao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Natureza da Operação<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="nfe-natureza-operacao" id="nfe-natureza-operacao" required value="VENDA DE MERCADORIA" class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-tipo-documento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Documento<span class="text-error ml-1">*</span></label>
+                        <select name="nfe-tipo-documento" id="nfe-tipo-documento" required class="mt-1 block w-full input-form">
+                            <option value="1">1 - Saída</option>
+                            <option value="0">0 - Entrada</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="nfe-finalidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Finalidade da Emissão<span class="text-error ml-1">*</span></label>
+                        <select name="nfe-finalidade" id="nfe-finalidade" required class="mt-1 block w-full input-form">
+                            <option value="1">1 - NF-e normal</option>
+                            <option value="2">2 - NF-e complementar</option>
+                            <option value="3">3 - NF-e de ajuste</option>
+                            <option value="4">4 - Devolução de mercadoria</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Emitente</legend>
+                <div id="nfe-dados-emitente" class="mt-2 text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                    <p><strong>Razão Social:</strong> IMPPETO AUTO PARTS LTDA (Simulado)</p>
+                    <p><strong>CNPJ:</strong> 00.000.000/0001-00 (Simulado)</p>
+                    <p><strong>Endereço:</strong> Rua Exemplo, 123, Centro, Cidade Exemplo - ES (Simulado)</p>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Destinatário</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+                    <div>
+                        <label for="nfe-dest-nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome/Razão Social<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="nfe-dest-nome" id="nfe-dest-nome" required class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-dest-doc" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CPF/CNPJ<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="nfe-dest-doc" id="nfe-dest-doc" required class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-dest-ie" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Inscrição Estadual</label>
+                        <input type="text" name="nfe-dest-ie" id="nfe-dest-ie" class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="nfe-dest-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                        <input type="email" name="nfe-dest-email" id="nfe-dest-email" class="mt-1 block w-full input-form">
+                    </div>
+                    </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Itens da Nota Fiscal</legend>
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg mt-2">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-100 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-3 py-2 text-left text-xs font-medium">Cód.</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium">Descrição</th>
+                                <th class="px-2 py-2 text-center text-xs font-medium">NCM</th>
+                                <th class="px-2 py-2 text-center text-xs font-medium">CFOP</th>
+                                <th class="px-2 py-2 text-center text-xs font-medium">Qtd.</th>
+                                <th class="px-2 py-2 text-right text-xs font-medium">Vlr. Unit.</th>
+                                <th class="px-2 py-2 text-right text-xs font-medium">Vlr. Total</th>
+                                </tr>
+                        </thead>
+                        <tbody id="tabela-itens-nfe" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr id="nenhum-item-nfe-placeholder">
+                                <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    Nenhum item carregado ou adicionado à NF-e. Carregue um pedido ou adicione itens manualmente.
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                 <div class="mt-2 text-right">
+                     <button type="button" onclick="adicionarItemManualmenteNFe()" class="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"><i class="fas fa-plus-circle mr-1"></i>Adicionar Item Manualmente</button>
+                 </div>
+            </fieldset>
+            
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Totais da NF-e</legend>
+                <div class="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+                    <div><strong>Total Produtos:</strong> <span id="nfe-total-produtos">R$ 0,00</span></div>
+                    <div><strong>Total Descontos:</strong> <span id="nfe-total-descontos" class="text-red-600 dark:text-red-400">R$ 0,00</span></div>
+                    <div><strong>Valor Frete:</strong> <span id="nfe-valor-frete">R$ 0,00</span></div>
+                    <div><strong>Outras Despesas:</strong> <span id="nfe-outras-despesas">R$ 0,00</span></div>
+                    <div><strong>Total IPI:</strong> <span id="nfe-total-ipi">R$ 0,00</span></div>
+                    <div><strong>Total ICMS:</strong> <span id="nfe-total-icms">R$ 0,00</span></div>
+                    <div class="col-span-2 sm:col-span-2 text-right text-lg font-bold"><strong>TOTAL DA NOTA:</strong> <span id="nfe-total-geral" class="text-primary-DEFAULT dark:text-primary-light">R$ 0,00</span></div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Transporte e Informações Adicionais</legend>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <label for="nfe-transportadora" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Transportadora</label>
+                        <input type="text" name="nfe-transportadora" id="nfe-transportadora" class="mt-1 block w-full input-form">
+                    </div>
+                     <div>
+                        <label for="nfe-placa-veiculo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Placa Veículo</label>
+                        <input type="text" name="nfe-placa-veiculo" id="nfe-placa-veiculo" class="mt-1 block w-full input-form">
+                    </div>
+                    </div>
+                <div>
+                    <label for="nfe-info-adicionais" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 mt-3">Informações Adicionais (Fisco/Contribuinte)</label>
+                    <textarea name="nfe-info-adicionais" id="nfe-info-adicionais" rows="3" class="mt-1 block w-full input-form"></textarea>
+                </div>
+            </fieldset>
+
+
+            <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" onclick="limparFormularioNFe()" class="w-full sm:w-auto px-5 py-2.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 rounded-md text-sm font-medium transition-colors duration-150">
+                    Limpar NF-e
+                </button>
+                <button type="button" onclick="validarESimularEnvioNFe()" class="w-full sm:w-auto px-5 py-2.5 bg-success hover:opacity-90 text-white rounded-md text-sm font-medium transition-opacity duration-150 flex items-center justify-center">
+                    <i class="fas fa-paper-plane fa-fw mr-2"></i>Validar e Enviar (Simulação)
+                </button>
+            </div>
+            <div id="nfe-status-simulacao" class="mt-4 text-center"></div>
+        </form>
+
+        <div class="mt-10 pt-6 border-t border-gray-300 dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">NF-e Emitidas Recentes (Simulação)</h3>
+            <div id="lista-nfe-emitidas" class="space-y-2">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Nenhuma NF-e emitida recentemente (simulação).</p>
+            </div>
+        </div>
+
+    </div>
+</div>

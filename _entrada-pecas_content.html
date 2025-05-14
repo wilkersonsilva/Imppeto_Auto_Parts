@@ -1,0 +1,134 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Registrar Entrada de Peças no Estoque
+            </h2>
+            </div>
+
+        <form id="form-nova-entrada-pecas" class="space-y-6 border border-gray-200 dark:border-gray-700 p-4 rounded-md shadow-sm mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="entrada-fornecedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fornecedor<span class="text-error ml-1">*</span></label>
+                    <select id="entrada-fornecedor" name="entrada-fornecedor" required class="mt-1 block w-full input-form">
+                        <option value="">Selecione um fornecedor...</option>
+                        <option value="fornecedor-001">Peças Express Distribuidora Ltda ME</option>
+                        <option value="fornecedor-002">Importadora de Rolamentos Técnicos S.A.</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="entrada-nf" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número da Nota Fiscal<span class="text-error ml-1">*</span></label>
+                    <input type="text" name="entrada-nf" id="entrada-nf" required class="mt-1 block w-full input-form" placeholder="Ex: 001234">
+                </div>
+                <div>
+                    <label for="entrada-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data da Entrada<span class="text-error ml-1">*</span></label>
+                    <input type="date" name="entrada-data" id="entrada-data" required class="mt-1 block w-full input-form">
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-800 dark:text-gray-100 mb-3">Itens da Entrada</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-6 gap-3 items-end p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md mb-4">
+                    <div class="lg:col-span-2">
+                        <label for="item-peca" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Peça<span class="text-error ml-1">*</span></label>
+                        <select id="item-peca" class="mt-1 block w-full input-form input-sm">
+                            <option value="">Buscar/Selecionar peça...</option>
+                            <option value="peca-P00125">P00125 - Filtro de Óleo Scania XT</option>
+                            <option value="peca-P00342">P00342 - Jogo Pastilhas Freio Volvo FH</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="item-quantidade" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Qtd.<span class="text-error ml-1">*</span></label>
+                        <input type="number" id="item-quantidade" min="1" value="1" class="mt-1 block w-full input-form input-sm">
+                    </div>
+                    <div>
+                        <label for="item-custo-unitario" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Custo Unit. (R$)<span class="text-error ml-1">*</span></label>
+                        <input type="number" step="0.01" id="item-custo-unitario" min="0" class="mt-1 block w-full input-form input-sm" placeholder="0,00">
+                    </div>
+                    <div class="lg:col-span-1">
+                        <label for="item-localizacao" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Localização</label>
+                        <input type="text" id="item-localizacao" class="mt-1 block w-full input-form input-sm" placeholder="A1-01">
+                    </div>
+                    <div class="lg:col-span-1">
+                        <button type="button" id="btn-adicionar-item-entrada" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                            <i class="fas fa-plus fa-fw mr-1 sm:mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg mb-4">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-100 dark:bg-gray-700">
+                            <tr>
+                                <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Peça</th>
+                                <th scope="col" class="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Qtd.</th>
+                                <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Custo Unit.</th>
+                                <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Subtotal</th>
+                                <th scope="col" class="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Local</th>
+                                <th scope="col" class="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-itens-entrada" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr id="nenhum-item-entrada-placeholder">
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    Nenhum item adicionado a esta entrada ainda.
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="bg-gray-50 dark:bg-gray-700/50">
+                            <tr>
+                                <td colspan="3" class="px-3 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">TOTAL DA ENTRADA:</td>
+                                <td id="total-entrada-pecas" class="px-3 py-2 text-right text-sm font-semibold text-gray-900 dark:text-gray-100">R$ 0,00</td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            
+            <div>
+                <label for="entrada-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações</label>
+                <textarea name="entrada-obs" id="entrada-obs" rows="3" class="mt-1 block w-full input-form" placeholder="Qualquer informação adicional sobre esta entrada..."></textarea>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" onclick="cancelarNovaEntrada()" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 rounded-md text-sm font-medium transition-colors duration-150">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-5 py-2.5 bg-success hover:opacity-90 text-white rounded-md text-sm font-medium transition-opacity duration-150 flex items-center">
+                    <i class="fas fa-check-circle fa-fw mr-2"></i>Confirmar Entrada
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-10 pt-6 border-t border-gray-300 dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Histórico de Entradas</h3>
+            <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700/50">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Fornecedor</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nota Fiscal</th>
+                            <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Valor Total</th>
+                            <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body-historico-entradas" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">05/05/2025</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">Peças Express</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">001200</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-600 dark:text-gray-300">R$ 1.580,50</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-center text-sm font-medium">
+                                <button onclick="visualizarDetalhesEntrada('entrada-id-001')" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 p-1" title="Visualizar Detalhes"><i class="fas fa-eye fa-fw"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

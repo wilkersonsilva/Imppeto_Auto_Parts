@@ -1,0 +1,186 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Gerenciamento de Usuários e Perfis de Acesso
+            </h2>
+            </div>
+
+        <div data-tab-container>
+            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
+                    <li class="mr-2" role="presentation">
+                        <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab="gerenciar-usuarios" role="tab" aria-controls="gerenciar-usuarios-content" aria-selected="true">
+                            <i class="fas fa-users fa-fw mr-2"></i>Usuários
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab="gerenciar-perfis" role="tab" aria-controls="gerenciar-perfis-content" aria-selected="false">
+                            <i class="fas fa-user-shield fa-fw mr-2"></i>Perfis de Acesso
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="gerenciar-usuarios-content" class="tab-content" role="tabpanel" aria-labelledby="gerenciar-usuarios-tab">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Lista de Usuários</h3>
+                    <button onclick="openModalNovoUsuario()" class="px-4 py-2 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium flex items-center">
+                        <i class="fas fa-user-plus fa-fw mr-2"></i>Novo Usuário
+                    </button>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nome</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Login</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Perfil</th>
+                                <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-usuarios" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Administrador do Sistema</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">admin</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">admin@imppeto.com</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Administrador</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-center">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">Ativo</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                                    <button onclick="editarUsuario('user-admin')" class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1" title="Editar Usuário"><i class="fas fa-edit fa-fw"></i></button>
+                                    <button onclick="resetarSenhaUsuario('user-admin')" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-1" title="Resetar Senha"><i class="fas fa-key fa-fw"></i></button>
+                                    <button onclick="alternarStatusUsuario('user-admin', false)" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1" title="Desativar Usuário"><i class="fas fa-user-slash fa-fw"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Carlos Vendedor</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">carlos.vendas</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">carlos@imppeto.com</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Vendedor</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-center">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200">Inativo</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                                    <button onclick="editarUsuario('user-vendedor-01')" class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1" title="Editar Usuário"><i class="fas fa-edit fa-fw"></i></button>
+                                    <button onclick="resetarSenhaUsuario('user-vendedor-01')" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-1" title="Resetar Senha"><i class="fas fa-key fa-fw"></i></button>
+                                    <button onclick="alternarStatusUsuario('user-vendedor-01', true)" class="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 p-1" title="Ativar Usuário"><i class="fas fa-user-check fa-fw"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <nav class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 px-4 py-3 sm:px-0">
+                    </nav>
+            </div>
+
+            <div id="gerenciar-perfis-content" class="tab-content" role="tabpanel" aria-labelledby="gerenciar-perfis-tab">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Lista de Perfis de Acesso</h3>
+                    <button onclick="openModalNovoPerfil()" class="px-4 py-2 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium flex items-center">
+                        <i class="fas fa-user-shield fa-fw mr-2"></i>Novo Perfil
+                    </button>
+                </div>
+                 <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nome do Perfil</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Descrição Resumida</th>
+                                <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nº Usuários</th>
+                                <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-perfis" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Administrador</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Acesso total ao sistema.</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">1</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                                    <button onclick="editarPerfil('perfil-admin')" class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1" title="Editar Permissões/Nome"><i class="fas fa-tasks fa-fw"></i></button>
+                                    <button onclick="excluirPerfil('perfil-admin')" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 p-1" title="Excluir Perfil (se não houver usuários)"><i class="fas fa-trash fa-fw"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Vendedor</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Acesso a vendas, clientes e consulta de peças.</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">1</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                                    <button onclick="editarPerfil('perfil-vendedor')" class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1" title="Editar Permissões/Nome"><i class="fas fa-tasks fa-fw"></i></button>
+                                    <button onclick="excluirPerfil('perfil-vendedor')" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 p-1" title="Excluir Perfil"><i class="fas fa-trash fa-fw"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-usuario-modal-content" class="hidden">
+        <form id="actual-form-usuario" class="space-y-4 max-h-[75vh] overflow-y-auto custom-scrollbar p-1 pr-2">
+            <input type="hidden" name="usuario-id" id="usuario-id">
+            <div>
+                <label for="usuario-nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome Completo<span class="text-error ml-1">*</span></label>
+                <input type="text" name="usuario-nome" id="usuario-nome" required class="mt-1 block w-full input-form">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="usuario-login" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Login de Acesso<span class="text-error ml-1">*</span></label>
+                    <input type="text" name="usuario-login" id="usuario-login" required class="mt-1 block w-full input-form">
+                </div>
+                <div>
+                    <label for="usuario-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email<span class="text-error ml-1">*</span></label>
+                    <input type="email" name="usuario-email" id="usuario-email" required class="mt-1 block w-full input-form">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="usuario-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha <span id="senha-obrigatoria-ind" class="text-error ml-1">*</span></label>
+                    <input type="password" name="usuario-senha" id="usuario-senha" class="mt-1 block w-full input-form" placeholder="Deixe em branco para não alterar">
+                </div>
+                <div>
+                    <label for="usuario-confirmar-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirmar Senha <span id="confirma-senha-obrigatoria-ind" class="text-error ml-1">*</span></label>
+                    <input type="password" name="usuario-confirmar-senha" id="usuario-confirmar-senha" class="mt-1 block w-full input-form">
+                </div>
+            </div>
+            <div>
+                <label for="usuario-perfil" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Perfil de Acesso<span class="text-error ml-1">*</span></label>
+                <select name="usuario-perfil" id="usuario-perfil" required class="mt-1 block w-full input-form">
+                    <option value="">Selecione um perfil...</option>
+                    <option value="perfil-admin">Administrador</option>
+                    <option value="perfil-vendedor">Vendedor</option>
+                    </select>
+            </div>
+             <div class="flex items-center">
+                <input id="usuario-status-ativo" name="usuario-status-ativo" type="checkbox" class="h-4 w-4 text-primary-DEFAULT border-gray-300 rounded focus:ring-primary-DEFAULT">
+                <label for="usuario-status-ativo" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">Usuário Ativo</label>
+            </div>
+        </form>
+    </div>
+
+    <div id="form-perfil-modal-content" class="hidden">
+        <form id="actual-form-perfil" class="space-y-6 max-h-[80vh] overflow-y-auto custom-scrollbar p-1 pr-2">
+            <input type="hidden" name="perfil-id" id="perfil-id">
+            <div>
+                <label for="perfil-nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome do Perfil<span class="text-error ml-1">*</span></label>
+                <input type="text" name="perfil-nome" id="perfil-nome" required class="mt-1 block w-full input-form">
+            </div>
+            <div>
+                <label for="perfil-descricao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
+                <textarea name="perfil-descricao" id="perfil-descricao" rows="2" class="mt-1 block w-full input-form"></textarea>
+            </div>
+            
+            <div class="pt-3 border-t border-gray-200 dark:border-gray-700">
+                <h4 class="text-md font-semibold text-gray-800 dark:text-gray-200 my-2">Definir Permissões</h4>
+                <div id="permissoes-container" class="space-y-4">
+                    <p class="text-sm text-gray-500">Carregando permissões...</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

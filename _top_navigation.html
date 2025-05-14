@@ -1,0 +1,48 @@
+<div class="flex items-center justify-between h-16 px-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 shadow-sm">
+    <div class="flex items-center">
+        <button id="mobile-menu-button" aria-label="Abrir menu" class="md:hidden mr-3 text-gray-500 dark:text-gray-400 focus:outline-none hover:text-gray-700 dark:hover:text-gray-300 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+        <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200" id="page-title">
+            Carregando...
+        </h1>
+    </div>
+
+    <div class="flex items-center space-x-2 sm:space-x-3">
+        <button id="theme-toggle" title="Alternar tema" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-DEFAULT">
+            <i class="fas fa-sun dark:hidden"></i> <i class="fas fa-moon hidden dark:block"></i> <noscript>
+                <i class="fas fa-sun"></i> </noscript>
+        </button>
+        
+        <div class="relative">
+            <button id="notifications-button" title="Notificações" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-DEFAULT">
+                <i class="fas fa-bell"></i>
+                <span id="notification-badge" class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-error ring-2 ring-white dark:ring-gray-800 transform scale-0 transition-transform duration-200 ease-out"></span>
+            </button>
+            
+            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-md shadow-lg overflow-hidden ring-1 ring-black dark:ring-gray-700 ring-opacity-5 z-20 animate-fade-in">
+                <div class="p-3 sm:p-4 font-semibold text-gray-800 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">
+                    Notificações
+                </div>
+                <div class="divide-y divide-gray-100 dark:divide-gray-700 max-h-80 overflow-y-auto custom-scrollbar">
+                    <a href="#" class="block p-3 sm:p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Nova venda realizada!</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Pedido #10026 - R$ 350,00</div>
+                        <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">11 de maio de 2025, 23:50</div>
+                    </a>
+                    <a href="#" class="block p-3 sm:p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Peça "Filtro XPTO" com baixo estoque</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Apenas 2 unidades restantes.</div>
+                        <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">11 de maio de 2025, 22:55</div>
+                    </a>
+                    <div id="no-notifications" class="p-4 text-center text-sm text-gray-500 dark:text-gray-400 hidden">
+                        Nenhuma notificação nova.
+                    </div>
+                </div>
+                <a href="#" class="block p-3 text-center text-sm font-medium text-primary-DEFAULT dark:text-primary-light hover:bg-gray-50 dark:hover:bg-gray-700 border-t border-gray-200 dark:border-gray-700 transition-colors duration-150">
+                    Ver todas as notificações
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

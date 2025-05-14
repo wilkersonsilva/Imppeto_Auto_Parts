@@ -1,0 +1,159 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Novo Pedido de Venda
+            </h2>
+            <button onclick="listarPedidosVenda()" class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center">
+                <i class="fas fa-list-alt fa-fw mr-2"></i>Listar Pedidos
+            </button>
+        </div>
+
+        <form id="form-novo-pedido-venda" class="space-y-6 border border-gray-200 dark:border-gray-700 p-4 rounded-md shadow-sm mb-8">
+            
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Informações do Pedido</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                    <div>
+                        <label for="pedido-cliente" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cliente<span class="text-error ml-1">*</span></label>
+                        <select id="pedido-cliente" name="pedido-cliente" required class="mt-1 block w-full input-form">
+                            <option value="">Selecione um cliente...</option>
+                            <option value="cliente-pf-123">João Pereira da Silva (PF)</option>
+                            <option value="cliente-pj-789">Transportadora Veloz Ltda. (PJ)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pedido-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Pedido<span class="text-error ml-1">*</span></label>
+                        <input type="date" name="pedido-data" id="pedido-data" required class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="pedido-vendedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vendedor</label>
+                        <select id="pedido-vendedor" name="pedido-vendedor" class="mt-1 block w-full input-form">
+                            <option value="">Selecione...</option>
+                            <option value="vendedor1">Admin (Vendedor Padrão)</option>
+                            </select>
+                    </div>
+                    <div>
+                        <label for="pedido-cond-pagamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Condição de Pagamento<span class="text-error ml-1">*</span></label>
+                        <select id="pedido-cond-pagamento" name="pedido-cond-pagamento" required class="mt-1 block w-full input-form">
+                            <option value="avista">À Vista</option>
+                            <option value="30d">30 Dias</option>
+                            <option value="30_60d">30/60 Dias</option>
+                            <option value="cartao_credito">Cartão de Crédito</option>
+                            <option value="cartao_debito">Cartão de Débito</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pedido-tipo-frete" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Frete</label>
+                        <select id="pedido-tipo-frete" name="pedido-tipo-frete" class="mt-1 block w-full input-form">
+                            <option value="cif">CIF (Frete Pago pelo Remetente)</option>
+                            <option value="fob">FOB (Frete Pago pelo Destinatário)</option>
+                            <option value="retira">Retira no Local</option>
+                            <option value="terceiros">Transportadora (Terceiros)</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="pedido-valor-frete" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Valor do Frete (R$)</label>
+                        <input type="number" step="0.01" min="0" name="pedido-valor-frete" id="pedido-valor-frete" value="0.00" class="mt-1 block w-full input-form">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-md font-semibold text-gray-700 dark:text-gray-200 px-2">Itens do Pedido</legend>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-7 gap-3 items-end p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md mb-4 mt-2">
+                    <div class="lg:col-span-2">
+                        <label for="item-pedido-peca" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Peça<span class="text-error ml-1">*</span> (Est: <span id="item-pedido-estoque-disponivel">-</span>)</label>
+                        <select id="item-pedido-peca" class="mt-1 block w-full input-form input-sm">
+                            <option value="">Buscar/Selecionar peça...</option>
+                            <option value="peca-P00125" data-estoque="25" data-preco="185.90">P00125 - Filtro de Óleo Scania XT</option>
+                            <option value="peca-P00342" data-estoque="3" data-preco="450.00">P00342 - Jogo Pastilhas Freio Volvo FH</option>
+                            <option value="peca-P00789" data-estoque="8" data-preco="120.00">P00789 - Correia Dentada MB Actros</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="item-pedido-quantidade" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Qtd.<span class="text-error ml-1">*</span></label>
+                        <input type="number" id="item-pedido-quantidade" min="1" value="1" class="mt-1 block w-full input-form input-sm">
+                    </div>
+                    <div>
+                        <label for="item-pedido-preco-unitario" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Preço Unit.<span class="text-error ml-1">*</span></label>
+                        <input type="number" step="0.01" id="item-pedido-preco-unitario" min="0" class="mt-1 block w-full input-form input-sm" placeholder="0,00">
+                    </div>
+                     <div>
+                        <label for="item-pedido-desconto" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Desc. (%)</label>
+                        <input type="number" step="0.01" id="item-pedido-desconto" min="0" max="100" value="0" class="mt-1 block w-full input-form input-sm" placeholder="0">
+                    </div>
+                    <div class="lg:col-span-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 invisible">Ação</label> <button type="button" id="btn-adicionar-item-pedido" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                            <i class="fas fa-plus fa-fw mr-1 sm:mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg mb-4">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-100 dark:bg-gray-700">
+                            <tr>
+                                <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Peça</th>
+                                <th scope="col" class="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Qtd.</th>
+                                <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Preço Unit.</th>
+                                <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Desconto</th>
+                                <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Subtotal</th>
+                                <th scope="col" class="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-itens-pedido" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr id="nenhum-item-pedido-placeholder">
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    Nenhum item adicionado ao pedido.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2"></div> <div class="space-y-2 text-sm border p-3 rounded-md bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Subtotal Produtos:</span>
+                            <span id="pedido-subtotal-produtos" class="font-semibold text-gray-800 dark:text-gray-100">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Desconto Total:</span>
+                            <span id="pedido-desconto-total" class="font-semibold text-red-600 dark:text-red-400">- R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Valor do Frete:</span>
+                            <span id="pedido-frete-display" class="font-semibold text-gray-800 dark:text-gray-100">R$ 0,00</span>
+                        </div>
+                        <hr class="dark:border-gray-600">
+                        <div class="flex justify-between text-lg">
+                            <span class="font-bold text-gray-800 dark:text-gray-100">TOTAL DO PEDIDO:</span>
+                            <span id="pedido-total-geral" class="font-bold text-primary-DEFAULT dark:text-primary-light">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            
+            <div>
+                <label for="pedido-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações do Pedido</label>
+                <textarea name="pedido-obs" id="pedido-obs" rows="3" class="mt-1 block w-full input-form" placeholder="Instruções especiais, informações de entrega, etc..."></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" onclick="cancelarNovoPedidoVenda()" class="w-full sm:w-auto px-5 py-2.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 rounded-md text-sm font-medium transition-colors duration-150">
+                    Limpar Pedido
+                </button>
+                <button type="button" onclick="salvarPedidoComoOrcamento()" class="w-full sm:w-auto px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-sm font-medium transition-colors duration-150 flex items-center justify-center">
+                    <i class="fas fa-file-invoice fa-fw mr-2"></i>Salvar como Orçamento
+                </button>
+                <button type="submit" class="w-full sm:w-auto px-5 py-2.5 bg-success hover:opacity-90 text-white rounded-md text-sm font-medium transition-opacity duration-150 flex items-center justify-center">
+                    <i class="fas fa-check-circle fa-fw mr-2"></i>Finalizar Pedido
+                </button>
+            </div>
+        </form>
+
+        </div>
+</div>

@@ -1,0 +1,143 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Inventário de Peças
+            </h2>
+            <div class="flex space-x-3">
+                <button onclick="iniciarProcessoContagem()" class="w-full sm:w-auto px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-green-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-clipboard-check fa-fw mr-2"></i>Iniciar Contagem
+                </button>
+                <button onclick="exportarInventario()" class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-file-export fa-fw mr-2"></i>Exportar
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-end">
+                <div>
+                    <label for="inv-search-peca" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peça (Cód/Desc)</label>
+                    <input type="text" id="inv-search-peca" class="mt-1 block w-full input-form" placeholder="Buscar peça...">
+                </div>
+                <div>
+                    <label for="inv-search-categoria" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoria</label>
+                    <select id="inv-search-categoria" class="mt-1 block w-full input-form">
+                        <option value="">Todas</option>
+                        <option value="motor">Motor</option>
+                        <option value="freio">Freio</option>
+                        <option value="suspensao">Suspensão</option>
+                        </select>
+                </div>
+                <div>
+                    <label for="inv-search-fornecedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fornecedor</label>
+                    <select id="inv-search-fornecedor" class="mt-1 block w-full input-form">
+                        <option value="">Todos</option>
+                        <option value="fornecedor-001">Peças Express</option>
+                        </select>
+                </div>
+                <div>
+                    <label for="inv-search-localizacao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Localização</label>
+                    <input type="text" id="inv-search-localizacao" class="mt-1 block w-full input-form" placeholder="Ex: A1-01">
+                </div>
+                <button id="btn-filtrar-inventario" class="w-full xl:mt-0 px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-400 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-filter fa-fw mr-2"></i>Aplicar Filtros
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700/50">
+                    <tr>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cód.</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Descrição da Peça</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Marca</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Local</th>
+                        <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Est. Atual</th>
+                        <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Custo Médio</th>
+                        <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Valor Total Est.</th>
+                        <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body-inventario" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-200">P00125</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 max-w-sm truncate" title="Filtro de Óleo Motor Scania XT Longa Duração">Filtro de Óleo Motor Scania XT Longa Duração</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Hengst</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">A1-05</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-center font-semibold text-blue-600 dark:text-blue-400">25</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-500 dark:text-gray-400">R$ 120,50</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-medium text-gray-700 dark:text-gray-200">R$ 3.012,50</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                            <button onclick="visualizarMovimentacoesPeca('P00125')" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-300 p-1" title="Histórico de Movimentações"><i class="fas fa-history fa-fw"></i></button>
+                            <button onclick="realizarAjusteEstoque('P00125', 'Filtro de Óleo Scania XT', 25)" class="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 p-1" title="Ajustar Estoque"><i class="fas fa-exchange-alt fa-fw"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-200">P00342</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 max-w-sm truncate" title="Jogo de Pastilhas de Freio Dianteiro Volvo FH (4 und)">Jogo de Pastilhas de Freio Dianteiro Volvo FH (4 und)</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">TRW</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">C2-10</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-center font-semibold text-error">3 <span class="text-xs text-gray-400">(min. 5)</span></td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-500 dark:text-gray-400">R$ 320,00</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-medium text-gray-700 dark:text-gray-200">R$ 960,00</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-center text-sm font-medium space-x-1">
+                            <button onclick="visualizarMovimentacoesPeca('P00342')" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-300 p-1" title="Histórico de Movimentações"><i class="fas fa-history fa-fw"></i></button>
+                            <button onclick="realizarAjusteEstoque('P00342', 'Jogo Pastilhas Freio Volvo FH', 3)" class="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 p-1" title="Ajustar Estoque"><i class="fas fa-exchange-alt fa-fw"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                <tfoot class="bg-gray-50 dark:bg-gray-700/50">
+                    <tr>
+                        <td colspan="6" class="px-4 py-3 text-right text-sm font-semibold text-gray-700 dark:text-gray-200 uppercase">Valor Total do Inventário:</td>
+                        <td id="valor-total-inventario" class="px-3 py-3 text-right text-sm font-bold text-gray-900 dark:text-gray-100">R$ 3.972,50</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <nav class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 px-4 py-3 sm:px-0" aria-label="Pagination">
+            <div class="hidden sm:block">
+              <p class="text-sm text-gray-700 dark:text-gray-300">
+                Mostrando <span class="font-medium">1</span> a <span class="font-medium">2</span> de <span class="font-medium">2</span> resultados
+              </p>
+            </div>
+            <div class="flex-1 flex justify-between sm:justify-end space-x-2">
+              <button class="relative inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50" disabled>Anterior</button>
+              <button class="ml-3 relative inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">Próximo</button>
+            </div>
+        </nav>
+    </div>
+
+    <div id="form-ajuste-estoque-modal-content" class="hidden">
+        <form id="actual-form-ajuste-estoque" class="space-y-4">
+            <input type="hidden" name="ajuste-peca-id" id="ajuste-peca-id">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peça:</label>
+                <p id="ajuste-peca-descricao" class="mt-1 text-md font-semibold text-gray-900 dark:text-gray-100"></p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Estoque Atual Sistema: <span id="ajuste-estoque-atual-sistema"></span></p>
+            </div>
+            <hr class="dark:border-gray-600">
+            <div>
+                <label for="ajuste-tipo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Ajuste<span class="text-error ml-1">*</span></label>
+                <select id="ajuste-tipo" name="ajuste-tipo" required class="mt-1 block w-full input-form">
+                    <option value="entrada">Entrada (Aumento)</option>
+                    <option value="saida">Saída (Diminuição)</option>
+                </select>
+            </div>
+            <div>
+                <label for="ajuste-quantidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantidade para Ajuste<span class="text-error ml-1">*</span></label>
+                <input type="number" name="ajuste-quantidade" id="ajuste-quantidade" required min="1" class="mt-1 block w-full input-form">
+            </div>
+             <div>
+                <label for="ajuste-novo-estoque" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Novo Estoque Calculado</label>
+                <input type="number" name="ajuste-novo-estoque" id="ajuste-novo-estoque" readonly class="mt-1 block w-full input-form bg-gray-100 dark:bg-gray-800 cursor-not-allowed">
+            </div>
+            <div>
+                <label for="ajuste-motivo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Motivo do Ajuste<span class="text-error ml-1">*</span></label>
+                <textarea name="ajuste-motivo" id="ajuste-motivo" rows="3" required class="mt-1 block w-full input-form" placeholder="Ex: Contagem de inventário, Avaria identificada, Perda, etc."></textarea>
+            </div>
+        </form>
+    </div>
+</div>

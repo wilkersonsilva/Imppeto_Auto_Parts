@@ -1,0 +1,157 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Preferências da Loja / Empresa
+            </h2>
+            </div>
+
+        <form id="form-preferencias-loja" class="space-y-8">
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 dark:text-gray-200 px-2 mb-3">Dados da Empresa</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <label for="pref-razao-social" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Razão Social<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="pref-razao-social" id="pref-razao-social" required class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="pref-nome-fantasia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Fantasia</label>
+                        <input type="text" name="pref-nome-fantasia" id="pref-nome-fantasia" class="mt-1 block w-full input-form">
+                    </div>
+                    <div>
+                        <label for="pref-cnpj" class="block text-sm font-medium text-gray-700 dark:text-gray-300">CNPJ<span class="text-error ml-1">*</span></label>
+                        <input type="text" name="pref-cnpj" id="pref-cnpj" required class="mt-1 block w-full input-form" placeholder="00.000.000/0001-00">
+                    </div>
+                    <div>
+                        <label for="pref-ie" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Inscrição Estadual</label>
+                        <input type="text" name="pref-ie" id="pref-ie" class="mt-1 block w-full input-form">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="pref-logo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Logo da Empresa</label>
+                        <div class="mt-1 flex items-center space-x-4">
+                            <img id="pref-logo-preview" src="https://via.placeholder.com/100x40.png?text=Sua+Logo" alt="Preview da Logo" class="h-10 bg-gray-100 dark:bg-gray-700 p-1 rounded border dark:border-gray-600">
+                            <input type="file" name="pref-logo-upload" id="pref-logo-upload" accept="image/png, image/jpeg, image/svg+xml" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-light/20 file:text-primary-DEFAULT dark:file:bg-primary-dark/30 dark:file:text-primary-light hover:file:bg-primary-light/30 dark:hover:file:bg-primary-dark/40 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-md font-medium text-gray-800 dark:text-gray-200 mt-6 mb-2">Endereço Principal</h4>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4">
+                        <div class="sm:col-span-2">
+                            <label for="pref-cep" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CEP</label>
+                            <input type="text" name="pref-cep" id="pref-cep" placeholder="00000-000" class="mt-1 block w-full input-form">
+                        </div>
+                         <div class="sm:col-span-4 flex items-end">
+                             <button type="button" onclick="buscarCepPreferencias()" class="px-3 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT">Buscar CEP</button>
+                         </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4">
+                        <div class="sm:col-span-4">
+                            <label for="pref-logradouro" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Logradouro</label>
+                            <input type="text" name="pref-logradouro" id="pref-logradouro" class="mt-1 block w-full input-form">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="pref-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número</label>
+                            <input type="text" name="pref-numero" id="pref-numero" class="mt-1 block w-full input-form">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="pref-complemento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Complemento</label>
+                        <input type="text" name="pref-complemento" id="pref-complemento" class="mt-1 block w-full input-form" placeholder="Apto, Bloco, Sala, etc.">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label for="pref-bairro" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bairro</label>
+                            <input type="text" name="pref-bairro" id="pref-bairro" class="mt-1 block w-full input-form">
+                        </div>
+                        <div>
+                            <label for="pref-cidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cidade</label>
+                            <input type="text" name="pref-cidade" id="pref-cidade" class="mt-1 block w-full input-form">
+                        </div>
+                        <div>
+                            <label for="pref-uf" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">UF</label>
+                            <input type="text" name="pref-uf" id="pref-uf" maxlength="2" class="mt-1 block w-full input-form" placeholder="SP">
+                        </div>
+                    </div>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mt-4">
+                    <div>
+                        <label for="pref-telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone Principal</label>
+                        <input type="tel" name="pref-telefone" id="pref-telefone" class="mt-1 block w-full input-form" placeholder="(00) 0000-0000">
+                    </div>
+                    <div>
+                        <label for="pref-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Principal</label>
+                        <input type="email" name="pref-email" id="pref-email" class="mt-1 block w-full input-form">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 dark:text-gray-200 px-2 mb-3">Preferências de Venda</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <label for="pref-venda-cond-pagamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Condição de Pagamento Padrão</label>
+                        <select id="pref-venda-cond-pagamento" name="pref-venda-cond-pagamento" class="mt-1 block w-full input-form">
+                            <option value="avista">À Vista</option>
+                            <option value="30d">30 Dias</option>
+                            <option value="30_60d">30/60 Dias</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pref-venda-vendedor-padrao" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Vendedor Padrão</label>
+                        <select id="pref-venda-vendedor-padrao" name="pref-venda-vendedor-padrao" class="mt-1 block w-full input-form">
+                            <option value="">Nenhum</option>
+                            <option value="vendedor1">Admin (Vendedor Padrão)</option>
+                             </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="pref-venda-sem-estoque" name="pref-venda-sem-estoque" type="checkbox" class="focus:ring-primary-DEFAULT h-4 w-4 text-primary-DEFAULT border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="pref-venda-sem-estoque" class="font-medium text-gray-700 dark:text-gray-300">Permitir venda de peças sem estoque?</label>
+                                <p class="text-gray-500 dark:text-gray-400 text-xs">Se marcado, o sistema alertará mas permitirá a venda.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="pref-venda-obs-padrao" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observação Padrão para Pedidos/NF-e</label>
+                        <textarea id="pref-venda-obs-padrao" name="pref-venda-obs-padrao" rows="2" class="mt-1 block w-full input-form" placeholder="Ex: Garantia de 90 dias contra defeitos de fabricação."></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset class="border border-gray-300 dark:border-gray-600 p-4 rounded-md">
+                <legend class="text-lg font-semibold text-gray-700 dark:text-gray-200 px-2 mb-3">Preferências de Estoque</legend>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <label for="pref-estoque-custo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Método de Custeio Padrão</label>
+                        <select id="pref-estoque-custo" name="pref-estoque-custo" class="mt-1 block w-full input-form">
+                            <option value="medio">Custo Médio Ponderado</option>
+                            <option value="peps">PEPS (Primeiro que Entra, Primeiro que Sai)</option>
+                            <option value="ueps" disabled>UEPS (Último que Entra, Primeiro que Sai) - Não usual fiscalmente</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1 flex items-end">
+                         <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="pref-estoque-alerta-minimo" name="pref-estoque-alerta-minimo" type="checkbox" class="focus:ring-primary-DEFAULT h-4 w-4 text-primary-DEFAULT border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="pref-estoque-alerta-minimo" class="font-medium text-gray-700 dark:text-gray-300">Ativar alertas de estoque mínimo?</label>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </fieldset>
+
+            <div class="flex justify-end pt-6 border-t border-gray-200 dark:border-gray-700">
+                <button type="submit" class="px-6 py-2.5 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-dark transition-colors duration-150 flex items-center">
+                    <i class="fas fa-save fa-fw mr-2"></i>Salvar Preferências
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

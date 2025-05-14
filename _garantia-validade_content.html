@@ -1,0 +1,182 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Controle de Garantia e Validade
+            </h2>
+            </div>
+
+        <div data-tab-container>
+            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
+                    <li class="mr-2" role="presentation">
+                        <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab="controle-validade" role="tab" aria-controls="controle-validade-content" aria-selected="true">
+                            Validade de Peças em Estoque
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab="controle-garantia-venda" role="tab" aria-controls="controle-garantia-venda-content" aria-selected="false">
+                            Garantia de Peças Vendidas
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="controle-validade-content" class="tab-content" role="tabpanel" aria-labelledby="controle-validade-tab">
+                <div class="mb-4 flex flex-col sm:flex-row items-center gap-3">
+                    <div class="relative w-full sm:max-w-sm grow">
+                        <input type="text" id="search-peca-validade" class="block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Buscar Peça por Cód/Desc ou Lote...">
+                    </div>
+                    <div>
+                        <label for="filtro-status-validade" class="sr-only">Status Validade</label>
+                        <select id="filtro-status-validade" class="input-form input-sm">
+                            <option value="">Todos os Status</option>
+                            <option value="ok">OK</option>
+                            <option value="proximo_vencimento">Próximo ao Vencimento</option>
+                            <option value="vencido">Vencido</option>
+                        </select>
+                    </div>
+                    <button class="w-full sm:w-auto px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center whitespace-nowrap">
+                        <i class="fas fa-filter fa-fw mr-2 text-gray-500 dark:text-gray-400"></i>Filtrar
+                    </button>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50">
+                            <tr>
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cód. Peça</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Descrição</th>
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Lote</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Estoque Lote</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data Validade</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-validade" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">P00887</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">Aditivo Radiador Concentrado Rosa</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">LT202501A</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">15</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-yellow-600 dark:text-yellow-400 font-semibold">30/06/2025</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 dark:bg-yellow-500/30 text-yellow-800 dark:text-yellow-200">Próximo Venc.</span>
+                                </td>
+                                <td class="px-3 py-3 whitespace-nowrap text-center text-sm font-medium">
+                                    <button onclick="ajustarEstoquePorValidade('P00887', 'LT202501A')" class="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300 p-1" title="Dar Baixa por Vencimento/Ajuste"><i class="fas fa-minus-circle fa-fw"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">P00886</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">Graxa Especial Alta Temperatura</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">GRX202412B</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">5</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-error font-semibold">30/04/2025</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 dark:bg-red-500/30 text-red-800 dark:text-red-200">Vencido</span>
+                                </td>
+                                <td class="px-3 py-3 whitespace-nowrap text-center text-sm font-medium">
+                                     <button onclick="ajustarEstoquePorValidade('P00886', 'GRX202412B')" class="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300 p-1" title="Dar Baixa por Vencimento/Ajuste"><i class="fas fa-minus-circle fa-fw"></i></button>
+                                </td>
+                            </tr>
+                             </tbody>
+                    </table>
+                </div>
+                <nav class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 px-4 py-3 sm:px-0">
+                    </nav>
+            </div>
+
+            <div id="controle-garantia-venda-content" class="tab-content" role="tabpanel" aria-labelledby="controle-garantia-venda-tab">
+                <div class="mb-4 flex flex-col sm:flex-row items-center gap-3">
+                     <div class="relative w-full sm:max-w-sm grow">
+                        <input type="text" id="search-peca-garantia" class="block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Buscar NF, Pedido, Cliente, Peça...">
+                    </div>
+                    <div>
+                        <label for="filtro-status-garantia" class="sr-only">Status Garantia</label>
+                        <select id="filtro-status-garantia" class="input-form input-sm">
+                            <option value="">Todos os Status</option>
+                            <option value="em_garantia">Em Garantia</option>
+                            <option value="expirada">Garantia Expirada</option>
+                            <option value="acionada">Acionada</option>
+                        </select>
+                    </div>
+                    <button class="w-full sm:w-auto px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center whitespace-nowrap">
+                        <i class="fas fa-filter fa-fw mr-2 text-gray-500 dark:text-gray-400"></i>Filtrar
+                    </button>
+                </div>
+                 <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50">
+                            <tr>
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">NF/Pedido Venda</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cliente</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Peça</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data Venda</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Fim Garantia</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-garantia-venda" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">NF 00567 / Ped #10025</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">Auto Peças ABC</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300" title="P00125 - Filtro de Óleo Scania XT">P00125 - Filtro de Óleo...</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">09/05/2025</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center text-green-600 dark:text-green-400 font-semibold">09/08/2025</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm text-center">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-500/30 text-green-800 dark:text-green-200">Em Garantia</span>
+                                </td>
+                                <td class="px-3 py-3 whitespace-nowrap text-center text-sm font-medium">
+                                    <button onclick="registrarAcionamentoGarantia('VENDA001', 'P00125')" class="text-gray-500 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400 p-1" title="Registrar Acionamento de Garantia"><i class="fas fa-shield-alt fa-fw"></i></button>
+                                </td>
+                            </tr>
+                             </tbody>
+                    </table>
+                </div>
+                <nav class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 px-4 py-3 sm:px-0">
+                    </nav>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-acionar-garantia-modal-content" class="hidden">
+        <form id="actual-form-acionar-garantia" class="space-y-4">
+            <input type="hidden" name="garantia-venda-id" id="garantia-venda-id">
+            <input type="hidden" name="garantia-peca-id" id="garantia-peca-id">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Venda:</label>
+                <p id="garantia-info-venda" class="mt-1 text-md text-gray-900 dark:text-gray-100"></p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peça:</label>
+                <p id="garantia-info-peca" class="mt-1 text-md text-gray-900 dark:text-gray-100"></p>
+            </div>
+            <hr class="dark:border-gray-600">
+            <div>
+                <label for="garantia-data-acionamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Acionamento<span class="text-error ml-1">*</span></label>
+                <input type="date" name="garantia-data-acionamento" id="garantia-data-acionamento" required class="mt-1 block w-full input-form">
+            </div>
+            <div>
+                <label for="garantia-defeito-relatado" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Defeito Relatado pelo Cliente<span class="text-error ml-1">*</span></label>
+                <textarea name="garantia-defeito-relatado" id="garantia-defeito-relatado" rows="3" required class="mt-1 block w-full input-form" placeholder="Descreva o problema informado pelo cliente..."></textarea>
+            </div>
+            <div>
+                <label for="garantia-procedimento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Procedimento Adotado</label>
+                <select id="garantia-procedimento" name="garantia-procedimento" class="mt-1 block w-full input-form">
+                    <option value="">Selecione...</option>
+                    <option value="troca_imediata">Troca Imediata da Peça</option>
+                    <option value="envio_analise_fornecedor">Envio para Análise do Fornecedor</option>
+                    <option value="reembolso">Reembolso ao Cliente</option>
+                    <option value="negada">Garantia Negada (especificar motivo)</option>
+                    <option value="outros">Outros (especificar)</option>
+                </select>
+            </div>
+            <div>
+                <label for="garantia-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações Adicionais</label>
+                <textarea name="garantia-obs" id="garantia-obs" rows="2" class="mt-1 block w-full input-form" placeholder="Detalhes do procedimento, nº de OS, etc."></textarea>
+            </div>
+        </form>
+    </div>
+</div>

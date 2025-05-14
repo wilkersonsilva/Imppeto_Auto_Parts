@@ -1,0 +1,73 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Gerenciamento de Comissões de Venda
+            </h2>
+            <button onclick="exportarRelatorioComissoes()" class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center">
+                <i class="fas fa-file-excel fa-fw mr-2"></i>Exportar Relatório
+            </button>
+        </div>
+
+        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                <div>
+                    <label for="comissao-vendedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vendedor</label>
+                    <select id="comissao-vendedor" class="mt-1 block w-full input-form">
+                        <option value="todos">Todos os Vendedores</option>
+                        <option value="vendedor1">Admin (Vendedor Padrão)</option>
+                        <option value="vendedor2">Vendedor Beta</option>
+                        </select>
+                </div>
+                <div>
+                    <label for="comissao-periodo-inicio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Período (Início)</label>
+                    <input type="date" id="comissao-periodo-inicio" class="mt-1 block w-full input-form">
+                </div>
+                <div>
+                    <label for="comissao-periodo-fim" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Período (Fim)</label>
+                    <input type="date" id="comissao-periodo-fim" class="mt-1 block w-full input-form">
+                </div>
+                <button id="btn-filtrar-comissoes" class="w-full lg:w-auto px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-400 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-filter fa-fw mr-2"></i>Aplicar Filtros
+                </button>
+            </div>
+        </div>
+
+        <div id="comissoes-container" class="space-y-8">
+            <p id="comissoes-placeholder" class="text-center text-gray-500 dark:text-gray-400 py-8">
+                <i class="fas fa-spinner fa-spin fa-2x text-primary-DEFAULT mb-3"></i><br>
+                Carregando dados de comissões...
+            </p>
+        </div>
+        
+        <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+            <div class="text-right">
+                <p class="text-sm text-gray-600 dark:text-gray-300">Total de Comissões Pendentes (Filtrado):</p>
+                <p id="total-comissoes-pendentes-geral" class="text-2xl font-bold text-primary-DEFAULT dark:text-primary-light">R$ 0,00</p>
+                 <button onclick="processarPagamentoComissoesSelecionadas()" class="mt-2 px-4 py-2 bg-success hover:opacity-90 text-white rounded-md text-sm font-medium flex items-center">
+                    <i class="fas fa-hand-holding-usd fa-fw mr-2"></i>Pagar Comissões Selecionadas
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pagamento-comissao-content" class="hidden">
+        <form id="actual-form-pagamento-comissao" class="space-y-4">
+            <p class="text-sm">Você está prestes a marcar as comissões selecionadas como pagas.</p>
+            <div id="resumo-comissoes-pagamento" class="text-sm space-y-1 max-h-40 overflow-y-auto custom-scrollbar p-2 border rounded-md dark:border-gray-600">
+                </div>
+            <div>
+                <label for="pgto-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Pagamento<span class="text-error ml-1">*</span></label>
+                <input type="date" name="pgto-data" id="pgto-data" required class="mt-1 block w-full input-form">
+            </div>
+            <div>
+                <label for="pgto-referencia" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Referência/Comprovante</label>
+                <input type="text" name="pgto-referencia" id="pgto-referencia" class="mt-1 block w-full input-form" placeholder="Nº Transação, Cheque, etc.">
+            </div>
+            <div>
+                <label for="pgto-observacao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações</label>
+                <textarea name="pgto-observacao" id="pgto-observacao" rows="2" class="mt-1 block w-full input-form"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
