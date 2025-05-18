@@ -1,29 +1,49 @@
 // fornecedoresController.js
-// Data e Hora Atual: 13 de maio de 2025
+// Data e Hora Atual: 16 de maio de 2025
 
-import { openModal, closeModal } from './uiUtils.js'; // Funções do modal genérico
-import { loadContent, getCurrentSection } from './contentLoader.js'; // Para recarregar a seção, se necessário
+import { openModal, closeModal } from './uiUtils.js';
+import { loadContent, getCurrentSection } from './contentLoader.js';
+
+/**
+ * Inicializa a página de Fornecedores.
+ * Esta função é chamada pelo contentLoader quando a seção de fornecedores é carregada.
+ */
+export function initializeFornecedores() {
+    console.log("Página de Gerenciamento de Fornecedores inicializada.");
+    // Futuramente, você pode adicionar aqui:
+    // - Carregamento inicial da lista de fornecedores na tabela (se não for feito sob demanda por filtros)
+    // - Configuração de listeners para filtros avançados, paginação, etc.
+    // - Verificação de permissões do usuário para habilitar/desabilitar botões de CRUD.
+}
 
 /**
  * Abre o modal para adicionar um novo fornecedor.
  */
 export function openModalNovoFornecedor() {
-    const formId = 'form-fornecedor-modal-content'; // ID do DIV que contém o formulário no _fornecedores_content.html
-    const actualFormId = 'actual-form-fornecedor'; // ID do <form> em si
+    const formId = 'form-fornecedor-modal-content';
+    const actualFormId = 'actual-form-fornecedor';
 
-    // Garante que o campo fornecedor-id (usado para edição) esteja limpo
     const formHtmlContainer = document.getElementById(formId);
     if (formHtmlContainer) {
         const templateForm = formHtmlContainer.querySelector(`#${actualFormId}`);
         if (templateForm) {
             const hiddenIdField = templateForm.querySelector('#fornecedor-id');
-            if (hiddenIdField) hiddenIdField.value = '';
+            if (hiddenIdField) hiddenIdField.value = ''; // Limpa ID para novo fornecedor
+
+            // Se o formulário estiver dentro de um elemento que é clonado ou cujo innerHTML é usado,
+            // é melhor resetar os campos aqui para garantir que esteja limpo.
+            // Se o modal sempre pega o HTML "original" da página, o reset pode não ser necessário
+            // a menos que os campos no HTML original sejam modificados por JS.
+            const formParaResetar = tempDiv.querySelector('form'); // Exemplo se estivesse clonando
+            // if (formParaResetar) formParaResetar.reset();
+            // Por enquanto, assumimos que o template em _fornecedores_content.html está "limpo"
+            // ou que o processo de abrir o modal já lida com a limpeza/construção do formulário.
         }
     }
 
     openModal('Novo Fornecedor', formId, {
         iconClass: 'fas fa-truck-loading text-primary-DEFAULT dark:text-primary-light',
-        modalSize: 'sm:max-w-3xl', // Ajuste conforme a necessidade do formulário
+        modalSize: 'sm:max-w-3xl',
         confirmText: 'Salvar Fornecedor',
         onConfirm: () => {
             const formElement = document.querySelector(`#modal-content-area #${actualFormId}`);
@@ -32,14 +52,10 @@ export function openModalNovoFornecedor() {
                     const formData = new FormData(formElement);
                     const data = Object.fromEntries(formData.entries());
                     console.log('Salvando novo fornecedor:', data);
-                    
-                    // SIMULAÇÃO DE SALVAMENTO
-                    // Em um app real: await api.saveFornecedor(data);
                     alert('Fornecedor salvo com sucesso! (simulação)');
                     closeModal();
-                    // Recarrega a lista de fornecedores se estiver na seção correta
                     if (getCurrentSection() === 'fornecedores') {
-                        loadContent('fornecedores'); 
+                        loadContent('fornecedores'); // Recarrega para ver o novo fornecedor
                     }
                 } else {
                     formElement.reportValidity();
@@ -58,11 +74,10 @@ export function openModalNovoFornecedor() {
  */
 export function visualizarFornecedor(fornecedorId) {
     console.log(`Visualizar Fornecedor com ID: ${fornecedorId}`);
-    
-    // SIMULAÇÃO: Buscar dados do fornecedor.
     let dadosFornecedor = {};
     let tituloModal = 'Detalhes do Fornecedor';
 
+    // SIMULAÇÃO: Buscar dados do fornecedor.
     if (fornecedorId === 'fornecedor-001') {
         dadosFornecedor = {
             id: 'fornecedor-001',
@@ -114,14 +129,14 @@ export function visualizarFornecedor(fornecedorId) {
         return;
     }
 
-    let htmlConteudoVisualizacao = `<div class="space-y-2 text-sm p-1">`;
+    let htmlConteudoVisualizacao = `<div class="space-y-1.5 text-sm p-1">`;
     for (const [key, value] of Object.entries(dadosFornecedor)) {
-        if (key === 'id') continue; // Não mostra o ID interno na visualização
+        if (key === 'id') continue;
         let label = key.replace('fornecedor-', '').replace(/([A-Z0-9])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim();
          if (['Cnpj', 'Ie', 'Uf', 'Cep'].includes(label)) {
             label = label.toUpperCase();
         }
-        htmlConteudoVisualizacao += `<div class="flex border-b border-gray-100 dark:border-gray-700 py-1.5"><strong class="w-2/5 min-w-[150px] text-gray-500 dark:text-gray-400">${label}:</strong> <span class="w-3/5 text-gray-800 dark:text-gray-200 break-all">${value || 'Não informado'}</span></div>`;
+        htmlConteudoVisualizacao += `<div class="flex border-b border-gray-100 dark:border-gray-700 py-1.5"><strong class="w-2/5 min-w-[150px] text-gray-500 dark:text-gray-400">${label}:</strong> <span class="w-3/5 text-gray-800 dark:text-gray-200 break-words">${value || 'Não informado'}</span></div>`;
     }
     htmlConteudoVisualizacao += `</div>`;
 
@@ -133,6 +148,7 @@ export function visualizarFornecedor(fornecedorId) {
     });
 }
 
+
 /**
  * Abre o modal para editar um fornecedor existente, pré-preenchendo o formulário.
  * @param {string} fornecedorId - O ID do fornecedor a ser editado (simulado).
@@ -142,10 +158,10 @@ export function editarFornecedor(fornecedorId) {
     const formContainerId = 'form-fornecedor-modal-content';
     const actualFormId = 'actual-form-fornecedor';
 
-    // SIMULAÇÃO: Buscar dados do fornecedor.
     let dadosParaEdicao = {};
     let tituloModal = 'Editar Fornecedor';
 
+    // SIMULAÇÃO: Buscar dados do fornecedor para edição
     if (fornecedorId === 'fornecedor-001') {
         dadosParaEdicao = {
             'fornecedor-id': fornecedorId,
@@ -196,32 +212,32 @@ export function editarFornecedor(fornecedorId) {
         alert('Dados do fornecedor não encontrados para edição.');
         return;
     }
-    
+
     const formHtmlContainer = document.getElementById(formContainerId);
-    if (!formHtmlContainer) { 
-        console.error(`Container do formulário '${formContainerId}' não encontrado.`); 
-        return; 
-    }
-    
+    if (!formHtmlContainer) { console.error(`Container do formulário '${formContainerId}' não encontrado.`); return; }
+
     const originalForm = formHtmlContainer.querySelector(`#${actualFormId}`);
-    if(!originalForm) { 
-        console.error(`Formulário original #${actualFormId} não encontrado em #${formContainerId}`); 
-        return; 
-    }
-    const formClone = originalForm.cloneNode(true);
+    if(!originalForm) { console.error(`Formulário original #${actualFormId} não encontrado.`); return; }
 
+    // Clonar o formulário para não modificar o template original na página
     const tempDiv = document.createElement('div');
-    tempDiv.appendChild(formClone);
-    
-    for (const key in dadosParaEdicao) {
-        const field = tempDiv.querySelector(`[name="${key}"]`);
-        if (field) field.value = dadosParaEdicao[key];
-    }
-    // Preenche o campo oculto 'fornecedor-id'
-    const hiddenIdFieldInClone = tempDiv.querySelector('#fornecedor-id');
-    if (hiddenIdFieldInClone) hiddenIdFieldInClone.value = fornecedorId;
+    tempDiv.innerHTML = originalForm.outerHTML; // Pega o HTML do próprio form
+    const formClone = tempDiv.firstElementChild; // Agora formClone é o elemento <form>
 
-    openModal(tituloModal, tempDiv.innerHTML, {
+    // Preencher os campos do formulário clonado
+    for (const key in dadosParaEdicao) {
+        // Acessa os elementos do formulário pela coleção 'elements'
+        if (formClone.elements[key]) {
+            formClone.elements[key].value = dadosParaEdicao[key];
+        }
+    }
+    // Garante que o ID do fornecedor (oculto) está no formulário clonado
+     if (formClone.elements['fornecedor-id']) {
+        formClone.elements['fornecedor-id'].value = fornecedorId;
+    }
+
+
+    openModal(tituloModal, formClone.outerHTML, { // Passa o HTML do formulário clonado e preenchido
         iconClass: 'fas fa-edit text-primary-DEFAULT dark:text-primary-light',
         modalSize: 'sm:max-w-3xl',
         confirmText: 'Salvar Alterações',
@@ -232,8 +248,6 @@ export function editarFornecedor(fornecedorId) {
                     const formData = new FormData(formElement);
                     const data = Object.fromEntries(formData.entries());
                     console.log(`Salvando alterações para Fornecedor ID: ${data['fornecedor-id'] || fornecedorId}`, data);
-                    
-                    // SIMULAÇÃO DE ATUALIZAÇÃO
                     alert('Alterações do fornecedor salvas com sucesso! (simulação)');
                     closeModal();
                     if (getCurrentSection() === 'fornecedores') loadContent('fornecedores');
@@ -252,25 +266,21 @@ export function editarFornecedor(fornecedorId) {
  * @param {string} fornecedorId - O ID do fornecedor a ser excluído (simulado).
  */
 export function excluirFornecedor(fornecedorId) {
-    // SIMULAÇÃO: Obter nome/razão social para a mensagem de confirmação
     let nomeFornecedorParaExibicao = `ID ${fornecedorId}`;
-    if (fornecedorId === 'fornecedor-001') {
-        nomeFornecedorParaExibicao = 'Peças Express Distribuidora';
-    } else if (fornecedorId === 'fornecedor-002') {
-        nomeFornecedorParaExibicao = 'IRT Rolamentos';
-    }
+    // Simulação para obter nome para exibição
+    if (fornecedorId === 'fornecedor-001') nomeFornecedorParaExibicao = 'Peças Express Distribuidora';
+    else if (fornecedorId === 'fornecedor-002') nomeFornecedorParaExibicao = 'IRT Rolamentos';
 
-    openModal( 
-        'Confirmar Exclusão de Fornecedor', 
-        `<p class="text-sm text-gray-600 dark:text-gray-300">Tem certeza que deseja excluir o fornecedor <strong class="font-medium">${nomeFornecedorParaExibicao}</strong>?<br>Esta ação não poderá ser desfeita.</p>`, 
+    openModal(
+        'Confirmar Exclusão de Fornecedor',
+        `<p class="text-sm text-gray-600 dark:text-gray-300">Tem certeza que deseja excluir o fornecedor <strong class="font-medium">${nomeFornecedorParaExibicao}</strong>?<br>Esta ação não poderá ser desfeita.</p>`,
         {
-            iconClass: 'fas fa-exclamation-triangle text-error', 
-            modalSize: 'sm:max-w-md', 
-            confirmText: 'Excluir Fornecedor', 
+            iconClass: 'fas fa-exclamation-triangle text-error',
+            modalSize: 'sm:max-w-md',
+            confirmText: 'Excluir Fornecedor',
             cancelText: 'Cancelar',
             onConfirm: () => {
                 console.log(`Excluindo Fornecedor com ID: ${fornecedorId}`);
-                // SIMULAÇÃO DE EXCLUSÃO
                 alert(`Fornecedor ${nomeFornecedorParaExibicao} excluído com sucesso! (simulação)`);
                 closeModal();
                 if (getCurrentSection() === 'fornecedores') loadContent('fornecedores');
@@ -283,21 +293,15 @@ export function excluirFornecedor(fornecedorId) {
 /**
  * Busca um CEP usando a API ViaCEP e preenche os campos de endereço no formulário de fornecedor no modal.
  */
-export async function buscarCepFornecedor() { // Não precisa de prefixo, pois os IDs são específicos para fornecedor
+export async function buscarCepFornecedor() {
     const modalContentArea = document.getElementById('modal-content-area');
-    if (!modalContentArea) { 
-        console.error('Área de conteúdo do modal não encontrada para buscar CEP de fornecedor.'); 
-        return; 
-    }
+    if (!modalContentArea) { console.error('Área de conteúdo do modal não encontrada para buscar CEP de fornecedor.'); return; }
 
-    const cepInput = modalContentArea.querySelector('#fornecedor-cep'); // ID direto
-    if (!cepInput) { 
-        console.error('Campo de CEP #fornecedor-cep não encontrado no modal.'); 
-        return; 
-    }
-    const cepValue = cepInput.value;
-    
-    if (!cepValue || cepValue.replace(/\D/g, '').length !== 8) {
+    const cepInput = modalContentArea.querySelector('#fornecedor-cep');
+    if (!cepInput) { console.error('Campo de CEP #fornecedor-cep não encontrado no modal.'); return; }
+    const cepValue = cepInput.value.replace(/\D/g, '');
+
+    if (cepValue.length !== 8) {
         alert('Por favor, insira um CEP válido (8 dígitos).');
         cepInput.focus();
         return;
@@ -309,10 +313,10 @@ export async function buscarCepFornecedor() { // Não precisa de prefixo, pois o
         cidade: modalContentArea.querySelector('#fornecedor-cidade'),
         uf: modalContentArea.querySelector('#fornecedor-uf')
     };
-    
+
     Object.values(fieldsToFill).forEach(field => { if(field) field.value = ''; });
-    
-    const buscarCepButton = modalContentArea.querySelector('button[onclick="buscarCepFornecedor()"]'); // Seleciona o botão
+
+    const buscarCepButton = modalContentArea.querySelector('button[onclick="buscarCepFornecedor()"]');
     let originalButtonText;
     if (buscarCepButton) {
         originalButtonText = buscarCepButton.innerHTML;
@@ -321,14 +325,13 @@ export async function buscarCepFornecedor() { // Não precisa de prefixo, pois o
     }
 
     try {
-        const response = await fetch(`https://viacep.com.br/ws/${cepValue.replace(/\D/g, '')}/json/`);
-        
+        const response = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
         if (buscarCepButton) {
             buscarCepButton.innerHTML = originalButtonText;
             buscarCepButton.disabled = false;
         }
 
-        if (!response.ok) throw new Error('Não foi possível conectar ao serviço de CEP.');
+        if (!response.ok) throw new Error(`Falha na requisição ao ViaCEP (status: ${response.status})`);
         const data = await response.json();
 
         if (data.erro) {
@@ -338,7 +341,7 @@ export async function buscarCepFornecedor() { // Não precisa de prefixo, pois o
             if (fieldsToFill.bairro) fieldsToFill.bairro.value = data.bairro || '';
             if (fieldsToFill.cidade) fieldsToFill.cidade.value = data.localidade || '';
             if (fieldsToFill.uf) fieldsToFill.uf.value = data.uf || '';
-            
+
             const numeroField = modalContentArea.querySelector('#fornecedor-numero');
             if(numeroField) numeroField.focus();
         }

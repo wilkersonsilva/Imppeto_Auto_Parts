@@ -18,11 +18,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-end">
                 <div>
                     <label for="inv-search-peca" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peça (Cód/Desc)</label>
-                    <input type="text" id="inv-search-peca" class="mt-1 block w-full input-form" placeholder="Buscar peça...">
+                    <input type="text" id="inv-search-peca" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Buscar peça...">
                 </div>
                 <div>
                     <label for="inv-search-categoria" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoria</label>
-                    <select id="inv-search-categoria" class="mt-1 block w-full input-form">
+                    <select id="inv-search-categoria" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         <option value="">Todas</option>
                         <option value="motor">Motor</option>
                         <option value="freio">Freio</option>
@@ -31,14 +31,14 @@
                 </div>
                 <div>
                     <label for="inv-search-fornecedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fornecedor</label>
-                    <select id="inv-search-fornecedor" class="mt-1 block w-full input-form">
+                    <select id="inv-search-fornecedor" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         <option value="">Todos</option>
                         <option value="fornecedor-001">Peças Express</option>
                         </select>
                 </div>
                 <div>
                     <label for="inv-search-localizacao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Localização</label>
-                    <input type="text" id="inv-search-localizacao" class="mt-1 block w-full input-form" placeholder="Ex: A1-01">
+                    <input type="text" id="inv-search-localizacao" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Ex: A1-01">
                 </div>
                 <button id="btn-filtrar-inventario" class="w-full xl:mt-0 px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-400 text-white rounded-md text-sm font-medium flex items-center justify-center">
                     <i class="fas fa-filter fa-fw mr-2"></i>Aplicar Filtros
@@ -121,14 +121,14 @@
             <hr class="dark:border-gray-600">
             <div>
                 <label for="ajuste-tipo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Ajuste<span class="text-error ml-1">*</span></label>
-                <select id="ajuste-tipo" name="ajuste-tipo" required class="mt-1 block w-full input-form">
+                <select id="ajuste-tipo" name="ajuste-tipo" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     <option value="entrada">Entrada (Aumento)</option>
                     <option value="saida">Saída (Diminuição)</option>
                 </select>
             </div>
             <div>
                 <label for="ajuste-quantidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantidade para Ajuste<span class="text-error ml-1">*</span></label>
-                <input type="number" name="ajuste-quantidade" id="ajuste-quantidade" required min="1" class="mt-1 block w-full input-form">
+                <input type="number" name="ajuste-quantidade" id="ajuste-quantidade" required min="1" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
             </div>
              <div>
                 <label for="ajuste-novo-estoque" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Novo Estoque Calculado</label>
@@ -136,7 +136,7 @@
             </div>
             <div>
                 <label for="ajuste-motivo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Motivo do Ajuste<span class="text-error ml-1">*</span></label>
-                <textarea name="ajuste-motivo" id="ajuste-motivo" rows="3" required class="mt-1 block w-full input-form" placeholder="Ex: Contagem de inventário, Avaria identificada, Perda, etc."></textarea>
+                <textarea name="ajuste-motivo" id="ajuste-motivo" rows="3" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Ex: Contagem de inventário, Avaria identificada, Perda, etc."></textarea>
             </div>
         </form>
     </div>

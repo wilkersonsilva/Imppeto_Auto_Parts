@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tela de login futurista da Imppeto - Inteligência que move o futuro." />
+  <meta name="theme-color" content="#2766ee" />
+  <title>Login - Imppeto Futurista</title>
+  <style>
+    :root {
+      --blue: #2766ee;
+      --green: #2ef296;
+      --background-dark: #0b0f1a;
+      --background-light: #e5ebf9;
+      --text-dark: #ffffff;
+      --text-light: #0b0f1a;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    body.light {
+      background-color: var(--background-light);
+      color: var(--text-light);
+    }
+
+    body.light .container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light .form-group input {
+      background-color: #ffffff;
+      color: #0b0f1a;
+      border: 1px solid #ccc;
+    }
+
+    body.light .form-group input::placeholder {
+      color: #999;
+    }
+
+    body.light .btn {
+      background-color: #2766ee;
+      color: #ffffff;
+    }
+
+    body.light .bottom-text {
+      color: #0b0f1a;
+    }
+
+    body.light .bottom-text a {
+      color: #2766ee;
+    }
+
+    body.light .theme-icon {
+      stroke: var(--blue);
+    }
+
+    body:not(.light) .slogan {
+      color: #f0f4ff;
+    }
+
+    .loader-wrapper {
+      position: fixed;
+      inset: 0;
+      background-color: var(--background-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 98;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid var(--green);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 99;
+    }
+
+    canvas#particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      padding: 60px 30px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      z-index: 1;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto;
+      width: 200px;
+      height: auto;
+    }
+
+    .slogan {
+      text-align: center;
+      font-size: 0.9em;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--blue);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .bottom-text {
+      margin-top: 20px;
+      font-size: 0.85em;
+      text-align: center;
+    }
+
+    .bottom-text a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(20deg);
+    }
+
+    .theme-icon {
+      stroke: var(--green);
+      width: 24px;
+      height: 24px;
+      transition: stroke 0.3s ease;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(39, 102, 238, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(39, 102, 238, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(39, 102, 238, 0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader-wrapper" id="loader">
+    <div class="loader"></div>
+  </div>
+
+  <canvas id="particles"></canvas>
+
+  <div class="container" id="loginBox">
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+      <svg class="theme-icon" id="themeIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"/>
+      </svg>
+    </button>
+
+    <div class="logo-wrapper">
+      <img src="data:image/svg+xml,%3csvg%20width='230'%20height='48'%20viewBox='0%200%20230%2048'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M9.3181%209.3061H0V0H9.3181V9.3061Z'%20fill='%232766EE'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M153.232%208.4149C163.341%208.4149%20170.365%2015.3367%20170.365%2023.9638V25.92H146.265C147.064%2029.431%20150.034%2031.187%20153.175%2031.187C155.973%2031.187%20158.658%2029.782%20159.8%2027.0235L169.052%2030.083C166.596%2035.651%20160.771%2039.513%20153.232%2039.513C143.067%2039.513%20136.042%2032.591%20136.042%2023.9638C136.042%2015.3367%20143.067%208.4149%20153.175%208.4149H153.232ZM159.628%2020.5531C158.429%2017.995%20155.859%2016.7411%20153.175%2016.7411C150.491%2016.7411%20147.921%2017.995%20146.722%2020.5531H159.628Z'%20fill='%232766EE'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M212.81%2039.513C202.644%2039.513%20195.677%2032.591%20195.677%2023.9638C195.677%2015.3367%20202.644%208.4149%20212.81%208.4149C222.918%208.4149%20230%2015.3367%20230%2023.9638C230%2032.591%20222.918%2039.513%20212.81%2039.513ZM220.006%2023.9638C220.006%2019.1487%20216.522%2016.7411%20212.81%2016.7411C209.098%2016.7411%20205.671%2019.1487%20205.671%2023.9638C205.671%2028.779%20209.098%2031.187%20212.81%2031.187C216.522%2031.187%20220.006%2028.779%20220.006%2023.9638Z'%20fill='%232766EE'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M65.226%2010.236V47.46H74.36V37.013C76.24%2038.696%2079.034%2040.042%2083.171%2040.042C90.801%2040.042%2097.839%2034.321%2097.839%2025.1388C97.839%2015.4761%2090.801%209.75531%2083.171%209.75531C79.034%209.75531%2076.24%2011.1014%2074.36%2012.7839V10.236H65.226ZM88.437%2025.1388C88.437%2029.754%2085.159%2032.35%2081.667%2032.35C76.885%2032.35%2074.36%2028.937%2074.36%2025.1388C74.36%2021.341%2076.885%2017.9277%2081.667%2017.9277C85.159%2017.9277%2088.437%2020.5237%2088.437%2025.1388Z'%20fill='%232766EE'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M100.634%2047.46V10.236H109.768V12.7839C111.648%2011.1014%20114.442%209.75531%20118.579%209.75531C126.209%209.75531%20133.247%2015.4761%20133.247%2025.1388C133.247%2034.321%20126.209%2040.042%20118.579%2040.042C114.442%2040.042%20111.648%2038.696%20109.768%2037.013V47.46H100.634ZM117.075%2032.35C120.567%2032.35%20123.845%2029.754%20123.845%2025.1388C123.845%2020.5237%20120.567%2017.9277%20117.075%2017.9277C112.293%2017.9277%20109.768%2021.341%20109.768%2025.1388C109.768%2028.937%20112.293%2032.35%20117.075%2032.35Z'%20fill='%232766EE'/%3e%3cpath%20d='M61.499%2021.2366C61.499%2012.7466%2056.828%209.703%2051.499%209.703C46.768%209.703%2043.773%2011.8389%2041.857%2014.2417C40.061%2011.0379%2036.827%209.703%2033.353%209.703C29.64%209.703%2027.006%2010.9845%2025.089%2012.6932V10.237H14.909V38.155H25.089V23.1588C25.089%2021.0764%2026.347%2018.7804%2029.161%2018.7804C31.198%2018.7804%2033.114%2019.5813%2033.114%2023.5326V38.155H43.294V23.1588C43.294%2021.0764%2044.552%2018.7804%2047.367%2018.7804C49.403%2018.7804%2051.319%2019.5813%2051.319%2023.5326V38.155H61.499V21.2366Z'%20fill='%232766EE'/%3e%3cpath%20d='M0%2010.237V38.155H9.3181V10.237H0Z'%20fill='%232766EE'/%3e%3cpath%20d='M191.685%2029.885C191.057%2030.136%20188.373%2030.989%20186.203%2030.989C183.119%2030.989%20182.091%2029.935%20182.091%2027.2268V17.446H192.599V10.237H172.382V27.2268C172.382%2034.7%20177.75%2039.516%20186.203%2039.516C190.714%2039.516%20195.112%2037.86%20195.569%2037.66L191.685%2029.885Z'%20fill='%232766EE'/%3e%3cpath%20d='M181.7%209.3061H172.382V0H181.7V9.3061Z'%20fill='%232766EE'/%3e%3c/svg%3e" alt="Imppeto" class="w-[200px] mx-auto block">
+       </div> 
+
+    <p class="slogan">Gerencie sua equipe, frotas <br>
+       e equipamentos com facilidade</p>
+
+    <form>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="seu@email.com" required />
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" placeholder="********" required />
+      </div>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <div class="bottom-text">
+      Não tem uma conta? <a href="#">Cadastre-se</a>
+    </div>
+  </div>
+
+    <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let isLight = false;
+    let mouse = { x: null, y: null };
+
+    // --- USUÁRIOS SIMULADOS ---
+    const usuariosSimulados = {
+      "admin@imppeto.com": { senha: "admin", perfil: "Administrador", nome: "Admin Imppeto" },
+      "vendedor@imppeto.com": { senha: "vendedor", perfil: "Vendedor", nome: "Carlos Vendas" },
+      "estoquista@imppeto.com": { senha: "estoquista", perfil: "Estoquista", nome: "Mariana Estoque" }
+    };
+    // -------------------------
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2 + 1,
+        dx: Math.random() * 1 - 0.5,
+        dy: Math.random() * 1 - 0.5,
+      });
+    }
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const particleColor = isLight ? "rgba(39, 102, 238, 0.6)" : "rgba(46, 242, 150, 0.8)";
+      const lineColor = isLight ? "rgba(39, 102, 238, 0.2)" : "rgba(46, 242, 150, 0.3)";
+
+      particles.forEach((p) => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (mouse.x !== null && mouse.y !== null) {
+            let dxMouse = mouse.x - p.x;
+            let dyMouse = mouse.y - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            if (distMouse < 120) {
+              // Efeito de repulsão suave
+              p.x -= dxMouse * 0.008; // Aumentei um pouco a força da repulsão
+              p.y -= dyMouse * 0.008;
+            }
+        }
+
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = particleColor;
+        ctx.fill();
+      });
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 0.5; // Linhas mais finas
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    // Atrasar um pouco o início da animação das partículas para garantir que o canvas esteja pronto
+    // window.addEventListener('load', () => requestAnimationFrame(drawParticles));
+
+
+    function toggleTheme() {
+      isLight = !isLight;
+      document.body.classList.toggle("light", isLight);
+      localStorage.setItem('loginTheme', isLight ? 'light' : 'dark'); // Salva o tema do login
+
+      const icon = document.getElementById("themeIcon");
+      // Atualiza o ícone para sol (light) ou lua (dark)
+      icon.innerHTML = isLight
+        ? `<svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>` // Sol
+        : `<svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" /></svg>`; // Lua
+    }
+    window.toggleTheme = toggleTheme;
+
+     // Aplica o tema salvo ao carregar a página de login
+    const savedLoginTheme = localStorage.getItem('loginTheme');
+    if (savedLoginTheme === 'light') {
+        isLight = false; // Para que toggleTheme funcione corretamente na primeira vez
+        toggleTheme();
+    }
+
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("loginBox").style.opacity = 1;
+        requestAnimationFrame(drawParticles); // Inicia partículas após o loader
+      }, 500); // Reduzi o tempo do loader para agilizar
+    });
+
+    document.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById("email");
+      const senhaInput = document.getElementById("senha");
+      const email = emailInput.value.trim();
+      const senha = senhaInput.value.trim();
+
+      // Remove mensagens de erro anteriores
+      const errorMessages = document.querySelectorAll('.error-message');
+      errorMessages.forEach(msg => msg.remove());
+      emailInput.style.borderColor = isLight ? '#ccc' : 'transparent'; // Reseta borda
+      senhaInput.style.borderColor = isLight ? '#ccc' : 'transparent';
+
+
+      if (!email || !senha) {
+        displayError("Por favor, preencha todos os campos.", emailInput);
+        return;
+      }
+
+      const usuarioEncontrado = usuariosSimulados[email.toLowerCase()];
+
+      if (usuarioEncontrado && usuarioEncontrado.senha === senha) {
+        // Simulação de login bem-sucedido
+        alert(`Login bem-sucedido! Bem-vindo, ${usuarioEncontrado.nome} (${usuarioEncontrado.perfil}). Redirecionando...`);
+
+        // Armazena informações do usuário no localStorage para o painel principal
+        const usuarioLogado = {
+            email: email.toLowerCase(),
+            nome: usuarioEncontrado.nome,
+            perfil: usuarioEncontrado.perfil,
+            // Poderíamos adicionar um token simulado se quiséssemos
+            // token: 'simulated_jwt_token_' + Date.now()
+        };
+        localStorage.setItem('usuarioLogadoImppeto', JSON.stringify(usuarioLogado));
+
+        // Redireciona para o painel principal (index.html)
+        window.location.href = 'index.html';
+
+      } else {
+        displayError("Email ou senha inválidos. Tente novamente.", emailInput);
+        emailInput.style.borderColor = 'red';
+        senhaInput.style.borderColor = 'red';
+        senhaInput.value = ''; // Limpa o campo de senha
+        senhaInput.focus();
+      }
+    });
+
+    function displayError(message, nearElement) {
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = message;
+        errorDiv.className = 'error-message'; // Para estilização se necessário
+        errorDiv.style.color = 'red';
+        errorDiv.style.fontSize = '0.8em';
+        errorDiv.style.textAlign = 'center';
+        errorDiv.style.marginTop = '10px';
+        nearElement.parentNode.parentNode.insertBefore(errorDiv, nearElement.parentNode.parentNode.querySelector('.bottom-text'));
+    }
+
+  </script>
+</body>
+</html>

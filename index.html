@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="light">
-<head>
+<html lang="pt-BR" class="light"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imppeto Auto Parts - Painel Administrativo</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> <script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <script>
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: 'class', // Habilita o modo escuro baseado na classe 'dark' no <html>
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            light: '#2563eb', // Azul primário claro (Ex: Botões, links ativos)
-                            DEFAULT: '#1d4ed8', // Azul primário padrão
+                            light: '#2563eb', // Azul primário claro (Ex: Botões ativos, links)
+                            DEFAULT: '#1d4ed8',// Azul primário padrão (Ex: bg-primary-DEFAULT)
                             dark: '#1e40af'   // Azul primário escuro (Ex: Hover de botões)
                         },
-                        secondary: {
-                            light: '#f59e0b', // Laranja secundário claro
-                            DEFAULT: '#d97706', // Laranja secundário padrão
-                            dark: '#b45309'   // Laranja secundário escuro
+                        secondary: { // Uma cor secundária, se necessário
+                            light: '#f59e0b', // Laranja/Amarelo
+                            DEFAULT: '#d97706',
+                            dark: '#b45309'
                         },
-                        // Cores de feedback
-                        success: '#16a34a', // Verde
-                        warning: '#facc15', // Amarelo
-                        error: '#dc2626',   // Vermelho
-                        info: '#0ea5e9',    // Azul claro info
-                        // Tons de cinza aprimorados para modo claro e escuro
-                        gray: {
-                            50: '#f9fafb',
+                        success: '#16a34a', // Verde para sucesso
+                        warning: '#facc15', // Amarelo para avisos
+                        error: '#dc2626',   // Vermelho para erros // Usado na validação da Curva ABC
+                        info: '#0ea5e9',    // Azul claro para informações
+                        gray: { // Paleta de cinzas ajustada
+                            50: '#f9fafb',  // Muito claro, quase branco
                             100: '#f3f4f6', // Fundo principal modo claro
-                            200: '#e5e7eb', // Bordas modo claro
+                            200: '#e5e7eb', // Bordas claras
                             300: '#d1d5db',
                             400: '#9ca3af', // Texto placeholder/secundário modo claro
                             500: '#6b7280',
@@ -40,117 +43,110 @@
                             900: '#111827'  // Fundo principal modo escuro
                         }
                     },
+                    fontFamily: {
+                        // sans: ['Inter', 'sans-serif'], // Exemplo
+                    },
                     transitionProperty: {
                         'colors': 'background-color, border-color, color, fill, stroke, opacity, transform',
                         'max-height': 'max-height',
                     },
                     keyframes: {
-                        spin: {
-                            to: { transform: 'rotate(360deg)' },
-                        },
-                        fadeIn: {
-                            from: { opacity: '0' },
-                            to: { opacity: '1' },
-                        },
-                        slideInUp: {
-                            from: { transform: 'translateY(20px)', opacity: '0' },
-                            to: { transform: 'translateY(0)', opacity: '1'},
-                        }
+                        spin: { to: { transform: 'rotate(360deg)' } },
+                        fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
+                        slideInUp: { from: { transform: 'translateY(20px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1'} }
                     },
                     animation: {
-                        spin: 'spin 1s linear infinite',
-                        'fade-in': 'fadeIn 0.3s ease-out',
-                        'slide-in-up': 'slideInUp 0.3s ease-out',
+                        spin: 'spin 0.8s linear infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'slide-in-up': 'slideInUp 0.3s ease-out forwards',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Estilos Globais e Utilitários Essenciais */
+        html, body { height: 100%; margin: 0; padding: 0; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        .modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); }
-        
-        /* Animação do Spinner */
-        .spinner {
-            width: 2.5rem; /* Ajustado para consistência */
-            height: 2.5rem;
-            border-width: 3px;
-            border-style: solid;
-            border-color: transparent;
-            border-top-color: currentColor; /* Usa a cor do texto atual (ex: primary.light) */
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        /* Dropdown da sidebar (se não for totalmente controlado por JS com classes de hidden/block) */
-        /* Se for JS, estas classes :hover podem ser removidas para evitar conflito */
-        /* .dropdown:hover .dropdown-content { display: block; } */
-
-        /* Ajustes para scrollbars mais discretas */
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .modal { transition: opacity 0.2s ease-out, visibility 0.2s ease-out; }
+        .modal-backdrop { background-color: rgba(0, 0, 0, 0.6); }
+        .spinner { @apply w-10 h-10 border-4 border-transparent border-t-current rounded-full animate-spin; }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 10px; border: 2px solid transparent; background-clip: content-box;}
-        ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.7); }
-
-        html.dark ::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.5); }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.4);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.6); }
+        html.dark ::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.4); }
         html.dark ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.7); }
 
+        /* Classe base padronizada para inputs, selects, textareas */
         .input-form {
-    @apply block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm placeholder-gray-400 dark:placeholder-gray-500;
-}
+            @apply block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm transition-colors duration-150;
+        }
+        .input-form.input-sm { /* Variação para inputs menores */
+            @apply text-xs py-1.5 px-2;
+        }
+        /* Estilização específica para selects para garantir boa aparência com a classe .input-form */
+        select.input-form {
+            @apply pr-8; /* Adiciona espaço para a seta do select */
+        }
+        /* Remove setas de inputs number (opcional) */
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
+        input[type='number'] { -moz-appearance: textfield; /* Firefox */ }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-600 dark:bg-gray-900 dark:text-gray-300 transition-colors duration-300 antialiased">
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 antialiased font-sans">
     <div class="flex h-screen overflow-hidden">
         <div id="sidebar-container" class="relative md:flex-shrink-0">
             <div class="w-64 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex items-center justify-center">
-                <div class="spinner text-primary-light dark:text-primary-dark"></div>
+                <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
             </div>
         </div>
-        
         <div class="flex flex-col flex-1 overflow-hidden">
-            <div id="topnav-container">
-                <div class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-center">
-                    <div class="spinner text-primary-light dark:text-primary-dark"></div>
+            <header id="topnav-container" class="flex-shrink-0">
+                <div class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-center shadow-sm">
+                    <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
                  </div>
-            </div>
-            
-            <div id="content-area" class="flex-1 overflow-y-auto p-4 sm:p-6 bg-gray-100 dark:bg-gray-900">
+            </header>
+            <main id="content-area" class="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 bg-gray-100 dark:bg-gray-900">
                 <div class="flex justify-center items-center h-full">
-                    <div class="spinner text-primary-light dark:text-primary-dark"></div>
+                    <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
-    
-    <div id="modal" class="fixed inset-0 z-[100] overflow-y-auto hidden animate-fade-in"> <div class="flex items-center sm:items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 modal-backdrop"></div>
-            </div>
+
+    <div id="modal" class="fixed inset-0 z-[100] overflow-y-auto hidden opacity-0 animate-fade-in" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end sm:items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 modal-backdrop transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            
-            <div id="modal-dialog" class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full animate-slide-in-up">
+            <div id="modal-dialog" class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full opacity-0 scale-95 animate-slide-in-up">
                 <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
-                        <div id="modal-icon-container" class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-primary-light/20 dark:bg-primary-dark/30 sm:mx-0 sm:h-10 sm:w-10">
-                            <i id="modal-icon" class="fas fa-info-circle text-primary-DEFAULT dark:text-primary-light"></i>
+                        <div id="modal-icon-container" class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-primary-light/10 dark:bg-primary-dark/20 sm:mx-0 sm:h-10 sm:w-10">
+                            <i id="modal-icon" class="fas fa-info-circle text-xl text-primary-DEFAULT dark:text-primary-light"></i>
                         </div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
                             <h3 class="text-lg leading-6 font-semibold text-gray-900 dark:text-gray-100" id="modal-title">Título do Modal</h3>
                             <div class="mt-2" id="modal-content-area">
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Conteúdo do modal aqui.</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Conteúdo padrão do modal.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="modal-actions" class="bg-gray-50 dark:bg-gray-700/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-200 dark:border-gray-700">
+                <div id="modal-actions" class="bg-gray-50 dark:bg-gray-700/70 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-200 dark:border-gray-600">
                     <button type="button" id="modal-confirm-button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-DEFAULT hover:bg-primary-dark text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-dark sm:ml-3 sm:w-auto sm:text-sm transition-colors duration-150">
                         Confirmar
                     </button>
-                    <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-700 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-light sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors duration-150">
+                    <button type="button" onclick="closeModal()" id="modal-cancel-button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-500 shadow-sm px-4 py-2 bg-white dark:bg-gray-700 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-primary-light sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors duration-150">
                         Cancelar
                     </button>
                 </div>
@@ -159,6 +155,6 @@
     </div>
 
     <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden animate-fade-in"></div>
-<script src="main.js" type="module"></script>
+    <script src="main.js" type="module"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@
             <div class="flex flex-col sm:flex-row items-end gap-3">
                 <div class="grow">
                     <label for="nfe-pedido-origem" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nº do Pedido de Venda</label>
-                    <input type="text" id="nfe-pedido-origem" class="mt-1 block w-full input-form" placeholder="Digite o número do pedido...">
+                    <input type="text" id="nfe-pedido-origem" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Digite o número do pedido...">
                 </div>
                 <button type="button" onclick="carregarDadosDoPedidoParaNFe()" class="w-full sm:w-auto px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-400 text-white rounded-md text-sm font-medium flex items-center justify-center">
                     <i class="fas fa-search fa-fw mr-2"></i>Carregar Pedido
@@ -30,30 +30,30 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                     <div>
                         <label for="nfe-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número NF-e</label>
-                        <input type="text" name="nfe-numero" id="nfe-numero" readonly class="mt-1 block w-full input-form bg-gray-100 dark:bg-gray-700/50" placeholder="(Gerado após autorização)">
+                        <input type="text" name="nfe-numero" id="nfe-numero" readonly class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="(Gerado após autorização)">
                     </div>
                     <div>
                         <label for="nfe-serie" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Série<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="nfe-serie" id="nfe-serie" required value="1" class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-serie" id="nfe-serie" required value="1" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-data-emissao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data/Hora Emissão<span class="text-error ml-1">*</span></label>
-                        <input type="datetime-local" name="nfe-data-emissao" id="nfe-data-emissao" required class="mt-1 block w-full input-form">
+                        <input type="datetime-local" name="nfe-data-emissao" id="nfe-data-emissao" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-natureza-operacao" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Natureza da Operação<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="nfe-natureza-operacao" id="nfe-natureza-operacao" required value="VENDA DE MERCADORIA" class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-natureza-operacao" id="nfe-natureza-operacao" required value="VENDA DE MERCADORIA" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-tipo-documento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Documento<span class="text-error ml-1">*</span></label>
-                        <select name="nfe-tipo-documento" id="nfe-tipo-documento" required class="mt-1 block w-full input-form">
+                        <select name="nfe-tipo-documento" id="nfe-tipo-documento" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="1">1 - Saída</option>
                             <option value="0">0 - Entrada</option>
                         </select>
                     </div>
                      <div>
                         <label for="nfe-finalidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Finalidade da Emissão<span class="text-error ml-1">*</span></label>
-                        <select name="nfe-finalidade" id="nfe-finalidade" required class="mt-1 block w-full input-form">
+                        <select name="nfe-finalidade" id="nfe-finalidade" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="1">1 - NF-e normal</option>
                             <option value="2">2 - NF-e complementar</option>
                             <option value="3">3 - NF-e de ajuste</option>
@@ -77,19 +77,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
                     <div>
                         <label for="nfe-dest-nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome/Razão Social<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="nfe-dest-nome" id="nfe-dest-nome" required class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-dest-nome" id="nfe-dest-nome" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-dest-doc" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CPF/CNPJ<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="nfe-dest-doc" id="nfe-dest-doc" required class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-dest-doc" id="nfe-dest-doc" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-dest-ie" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Inscrição Estadual</label>
-                        <input type="text" name="nfe-dest-ie" id="nfe-dest-ie" class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-dest-ie" id="nfe-dest-ie" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="nfe-dest-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                        <input type="email" name="nfe-dest-email" id="nfe-dest-email" class="mt-1 block w-full input-form">
+                        <input type="email" name="nfe-dest-email" id="nfe-dest-email" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     </div>
             </fieldset>
@@ -141,16 +141,16 @@
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                     <div>
                         <label for="nfe-transportadora" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Transportadora</label>
-                        <input type="text" name="nfe-transportadora" id="nfe-transportadora" class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-transportadora" id="nfe-transportadora" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                      <div>
                         <label for="nfe-placa-veiculo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Placa Veículo</label>
-                        <input type="text" name="nfe-placa-veiculo" id="nfe-placa-veiculo" class="mt-1 block w-full input-form">
+                        <input type="text" name="nfe-placa-veiculo" id="nfe-placa-veiculo" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     </div>
                 <div>
                     <label for="nfe-info-adicionais" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 mt-3">Informações Adicionais (Fisco/Contribuinte)</label>
-                    <textarea name="nfe-info-adicionais" id="nfe-info-adicionais" rows="3" class="mt-1 block w-full input-form"></textarea>
+                    <textarea name="nfe-info-adicionais" id="nfe-info-adicionais" rows="3" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm"></textarea>
                 </div>
             </fieldset>
 

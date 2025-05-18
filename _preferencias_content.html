@@ -13,19 +13,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div>
                         <label for="pref-razao-social" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Razão Social<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="pref-razao-social" id="pref-razao-social" required class="mt-1 block w-full input-form">
+                        <input type="text" name="pref-razao-social" id="pref-razao-social" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="pref-nome-fantasia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Fantasia</label>
-                        <input type="text" name="pref-nome-fantasia" id="pref-nome-fantasia" class="mt-1 block w-full input-form">
+                        <input type="text" name="pref-nome-fantasia" id="pref-nome-fantasia" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="pref-cnpj" class="block text-sm font-medium text-gray-700 dark:text-gray-300">CNPJ<span class="text-error ml-1">*</span></label>
-                        <input type="text" name="pref-cnpj" id="pref-cnpj" required class="mt-1 block w-full input-form" placeholder="00.000.000/0001-00">
+                        <input type="text" name="pref-cnpj" id="pref-cnpj" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="00.000.000/0001-00">
                     </div>
                     <div>
                         <label for="pref-ie" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Inscrição Estadual</label>
-                        <input type="text" name="pref-ie" id="pref-ie" class="mt-1 block w-full input-form">
+                        <input type="text" name="pref-ie" id="pref-ie" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div class="md:col-span-2">
                         <label for="pref-logo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Logo da Empresa</label>
@@ -40,7 +40,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4">
                         <div class="sm:col-span-2">
                             <label for="pref-cep" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CEP</label>
-                            <input type="text" name="pref-cep" id="pref-cep" placeholder="00000-000" class="mt-1 block w-full input-form">
+                            <input type="text" name="pref-cep" id="pref-cep" placeholder="00000-000" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         </div>
                          <div class="sm:col-span-4 flex items-end">
                              <button type="button" onclick="buscarCepPreferencias()" class="px-3 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT">Buscar CEP</button>
@@ -49,40 +49,40 @@
                     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4">
                         <div class="sm:col-span-4">
                             <label for="pref-logradouro" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Logradouro</label>
-                            <input type="text" name="pref-logradouro" id="pref-logradouro" class="mt-1 block w-full input-form">
+                            <input type="text" name="pref-logradouro" id="pref-logradouro" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         </div>
                         <div class="sm:col-span-2">
                             <label for="pref-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número</label>
-                            <input type="text" name="pref-numero" id="pref-numero" class="mt-1 block w-full input-form">
+                            <input type="text" name="pref-numero" id="pref-numero" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         </div>
                     </div>
                     <div>
                         <label for="pref-complemento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Complemento</label>
-                        <input type="text" name="pref-complemento" id="pref-complemento" class="mt-1 block w-full input-form" placeholder="Apto, Bloco, Sala, etc.">
+                        <input type="text" name="pref-complemento" id="pref-complemento" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Apto, Bloco, Sala, etc.">
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label for="pref-bairro" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bairro</label>
-                            <input type="text" name="pref-bairro" id="pref-bairro" class="mt-1 block w-full input-form">
+                            <input type="text" name="pref-bairro" id="pref-bairro" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         </div>
                         <div>
                             <label for="pref-cidade" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cidade</label>
-                            <input type="text" name="pref-cidade" id="pref-cidade" class="mt-1 block w-full input-form">
+                            <input type="text" name="pref-cidade" id="pref-cidade" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         </div>
                         <div>
                             <label for="pref-uf" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">UF</label>
-                            <input type="text" name="pref-uf" id="pref-uf" maxlength="2" class="mt-1 block w-full input-form" placeholder="SP">
+                            <input type="text" name="pref-uf" id="pref-uf" maxlength="2" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="SP">
                         </div>
                     </div>
                 </div>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mt-4">
                     <div>
                         <label for="pref-telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone Principal</label>
-                        <input type="tel" name="pref-telefone" id="pref-telefone" class="mt-1 block w-full input-form" placeholder="(00) 0000-0000">
+                        <input type="tel" name="pref-telefone" id="pref-telefone" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="(00) 0000-0000">
                     </div>
                     <div>
                         <label for="pref-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Principal</label>
-                        <input type="email" name="pref-email" id="pref-email" class="mt-1 block w-full input-form">
+                        <input type="email" name="pref-email" id="pref-email" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                 </div>
             </fieldset>
@@ -92,7 +92,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div>
                         <label for="pref-venda-cond-pagamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Condição de Pagamento Padrão</label>
-                        <select id="pref-venda-cond-pagamento" name="pref-venda-cond-pagamento" class="mt-1 block w-full input-form">
+                        <select id="pref-venda-cond-pagamento" name="pref-venda-cond-pagamento" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="avista">À Vista</option>
                             <option value="30d">30 Dias</option>
                             <option value="30_60d">30/60 Dias</option>
@@ -100,7 +100,7 @@
                     </div>
                     <div>
                         <label for="pref-venda-vendedor-padrao" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Vendedor Padrão</label>
-                        <select id="pref-venda-vendedor-padrao" name="pref-venda-vendedor-padrao" class="mt-1 block w-full input-form">
+                        <select id="pref-venda-vendedor-padrao" name="pref-venda-vendedor-padrao" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Nenhum</option>
                             <option value="vendedor1">Admin (Vendedor Padrão)</option>
                              </select>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="md:col-span-2">
                         <label for="pref-venda-obs-padrao" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observação Padrão para Pedidos/NF-e</label>
-                        <textarea id="pref-venda-obs-padrao" name="pref-venda-obs-padrao" rows="2" class="mt-1 block w-full input-form" placeholder="Ex: Garantia de 90 dias contra defeitos de fabricação."></textarea>
+                        <textarea id="pref-venda-obs-padrao" name="pref-venda-obs-padrao" rows="2" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Ex: Garantia de 90 dias contra defeitos de fabricação."></textarea>
                     </div>
                 </div>
             </fieldset>
@@ -128,7 +128,7 @@
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div>
                         <label for="pref-estoque-custo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Método de Custeio Padrão</label>
-                        <select id="pref-estoque-custo" name="pref-estoque-custo" class="mt-1 block w-full input-form">
+                        <select id="pref-estoque-custo" name="pref-estoque-custo" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="medio">Custo Médio Ponderado</option>
                             <option value="peps">PEPS (Primeiro que Entra, Primeiro que Sai)</option>
                             <option value="ueps" disabled>UEPS (Último que Entra, Primeiro que Sai) - Não usual fiscalmente</option>

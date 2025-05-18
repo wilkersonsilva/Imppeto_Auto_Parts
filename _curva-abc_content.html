@@ -1,0 +1,144 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0">
+                Análise da Curva ABC de Peças
+            </h2>
+            <button onclick="exportarAnaliseABC()" id="btn-exportar-abc" class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors duration-150 text-sm font-medium flex items-center justify-center" disabled>
+                <i class="fas fa-file-download fa-fw mr-2"></i>Exportar Análise
+            </button>
+        </div>
+
+        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-medium text-gray-800 dark:text-gray-100 mb-3">Parâmetros da Análise</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+                <div>
+                    <label for="abc-criterio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Critério de Análise<span class="text-error ml-1">*</span></label>
+                    <select id="abc-criterio" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                        <option value="valor_total_vendas">Valor Total de Venda (Faturamento)</option>
+                        <option value="quantidade_vendida">Quantidade Vendida</option>
+                        <option value="valor_total_estoque">Valor Total em Estoque (Custo)</option>
+                        <option value="margem_lucro_total">Margem de Lucro Total</option>
+                        <option value="frequencia_saida">Frequência de Saída (Nº de Pedidos)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="abc-periodo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Período<span class="text-error ml-1">*</span></label>
+                    <select id="abc-periodo" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                        <option value="30d">Últimos 30 dias</option>
+                        <option value="60d">Últimos 60 dias</option>
+                        <option value="90d" selected>Últimos 90 dias</option>
+                        <option value="180d">Últimos 180 dias</option>
+                        <option value="365d">Último Ano</option>
+                        <option value="todo_periodo">Todo o Período</option>
+                        <option value="estoque_atual" class="hidden">Estoque Atual (para valor em estoque)</option>
+                    </select>
+                </div>
+                 <div class="lg:col-span-1 grid grid-cols-3 gap-2 items-center border dark:border-gray-600 p-2 rounded-md">
+                    <span class="col-span-3 text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Classes ABC (% Acumulado):</span>
+                    <div>
+                        <label for="abc-classe-a" class="block text-xs font-medium text-gray-700 dark:text-gray-400">A (até)</label>
+                        <input type="number" id="abc-classe-a" value="80" min="1" max="98" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="abc-classe-b" class="block text-xs font-medium text-gray-700 dark:text-gray-400">B (até)</label>
+                        <input type="number" id="abc-classe-b" value="95" min="2" max="99" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                    </div>
+                     <span class="text-xs text-gray-500 dark:text-gray-400 pt-4 items-center flex">C: resto</span>
+                </div>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="btn-gerar-abc" class="px-5 py-2.5 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium flex items-center justify-center">
+                    <i class="fas fa-calculator fa-fw mr-2"></i>Gerar Curva ABC
+                </button>
+            </div>
+        </div>
+
+        <div id="abc-loading" class="hidden text-center py-12">
+            <div class="spinner text-primary-DEFAULT mx-auto"></div>
+            <p class="mt-3 text-gray-600 dark:text-gray-400">Calculando Curva ABC, por favor aguarde...</p>
+        </div>
+
+        <div id="abc-results-container" class="hidden mt-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-green-50 dark:bg-green-800/30 p-4 rounded-lg shadow text-center">
+                    <h4 class="text-lg font-semibold text-green-700 dark:text-green-300">Classe A</h4>
+                    <p class="text-2xl font-bold text-green-600 dark:text-green-200"><span id="resumo-a-itens">0</span> itens</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-a-percentual-valor">0.00</span>% do Valor Total</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-a-percentual-itens">0.00</span>% dos Itens</p>
+                </div>
+                <div class="bg-yellow-50 dark:bg-yellow-800/30 p-4 rounded-lg shadow text-center">
+                    <h4 class="text-lg font-semibold text-yellow-700 dark:text-yellow-300">Classe B</h4>
+                    <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-200"><span id="resumo-b-itens">0</span> itens</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-b-percentual-valor">0.00</span>% do Valor Total</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-b-percentual-itens">0.00</span>% dos Itens</p>
+                </div>
+                <div class="bg-red-50 dark:bg-red-800/30 p-4 rounded-lg shadow text-center">
+                    <h4 class="text-lg font-semibold text-red-700 dark:text-red-300">Classe C</h4>
+                    <p class="text-2xl font-bold text-red-600 dark:text-red-200"><span id="resumo-c-itens">0</span> itens</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-c-percentual-valor">0.00</span>% do Valor Total</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><span id="resumo-c-percentual-itens">0.00</span>% dos Itens</p>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-3">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                        Gráfico de Pareto (Curva ABC)
+                    </h3>
+                    <div class="flex items-center space-x-2 mt-2 sm:mt-0">
+                        <label for="abc-grafico-itens" class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Exibir no Gráfico:</label>
+                        <select id="abc-grafico-itens" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                            <option value="top10">Top 10 Itens</option>
+                            <option value="top25" selected>Top 25 Itens</option>
+                            <option value="top50">Top 50 Itens</option>
+                            <option value="classeA">Apenas Classe A</option>
+                            <option value="classeAB">Classes A e B</option>
+                            <option value="todos">Todos os Itens</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-md relative h-80 md:h-96">
+                    <canvas id="grafico-curva-abc"></canvas>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-3">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Detalhes dos Itens Classificados</h3>
+                    <div class="relative w-full sm:w-auto sm:max-w-xs mt-2 sm:mt-0">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" id="abc-search-table" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Buscar na tabela...">
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar shadow rounded-lg max-h-[600px]">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10">
+                            <tr>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Classe</th>
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cód. Peça</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Descrição</th>
+                                <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider" id="abc-coluna-valor-criterio">Valor Critério</th>
+                                <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">% Individual</th>
+                                <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">% Acumulada</th>
+                                <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Est. Atual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="abc-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr><td colspan="7" class="text-center p-8 text-gray-500 dark:text-gray-400">Defina os parâmetros e clique em "Gerar Curva ABC" para visualizar os dados.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="abc-no-data" class="hidden text-center py-12">
+            <i class="fas fa-info-circle fa-3x text-gray-400 dark:text-gray-500 mb-3"></i>
+            <p class="text-gray-600 dark:text-gray-400">Nenhum dado encontrado para os critérios e período selecionados.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Tente ajustar os filtros.</p>
+        </div>
+
+    </div>
+</div>

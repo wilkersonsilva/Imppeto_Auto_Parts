@@ -10,7 +10,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label for="entrada-fornecedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fornecedor<span class="text-error ml-1">*</span></label>
-                    <select id="entrada-fornecedor" name="entrada-fornecedor" required class="mt-1 block w-full input-form">
+                    <select id="entrada-fornecedor" name="entrada-fornecedor" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         <option value="">Selecione um fornecedor...</option>
                         <option value="fornecedor-001">Peças Express Distribuidora Ltda ME</option>
                         <option value="fornecedor-002">Importadora de Rolamentos Técnicos S.A.</option>
@@ -18,11 +18,11 @@
                 </div>
                 <div>
                     <label for="entrada-nf" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número da Nota Fiscal<span class="text-error ml-1">*</span></label>
-                    <input type="text" name="entrada-nf" id="entrada-nf" required class="mt-1 block w-full input-form" placeholder="Ex: 001234">
+                    <input type="text" name="entrada-nf" id="entrada-nf" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Ex: 001234">
                 </div>
                 <div>
                     <label for="entrada-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data da Entrada<span class="text-error ml-1">*</span></label>
-                    <input type="date" name="entrada-data" id="entrada-data" required class="mt-1 block w-full input-form">
+                    <input type="date" name="entrada-data" id="entrada-data" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-6 gap-3 items-end p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md mb-4">
                     <div class="lg:col-span-2">
                         <label for="item-peca" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Peça<span class="text-error ml-1">*</span></label>
-                        <select id="item-peca" class="mt-1 block w-full input-form input-sm">
+                        <select id="item-peca" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Buscar/Selecionar peça...</option>
                             <option value="peca-P00125">P00125 - Filtro de Óleo Scania XT</option>
                             <option value="peca-P00342">P00342 - Jogo Pastilhas Freio Volvo FH</option>
@@ -40,15 +40,15 @@
                     </div>
                     <div>
                         <label for="item-quantidade" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Qtd.<span class="text-error ml-1">*</span></label>
-                        <input type="number" id="item-quantidade" min="1" value="1" class="mt-1 block w-full input-form input-sm">
+                        <input type="number" id="item-quantidade" min="1" value="1" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="item-custo-unitario" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Custo Unit. (R$)<span class="text-error ml-1">*</span></label>
-                        <input type="number" step="0.01" id="item-custo-unitario" min="0" class="mt-1 block w-full input-form input-sm" placeholder="0,00">
+                        <input type="number" step="0.01" id="item-custo-unitario" min="0" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="0,00">
                     </div>
                     <div class="lg:col-span-1">
                         <label for="item-localizacao" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Localização</label>
-                        <input type="text" id="item-localizacao" class="mt-1 block w-full input-form input-sm" placeholder="A1-01">
+                        <input type="text" id="item-localizacao" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="A1-01">
                     </div>
                     <div class="lg:col-span-1">
                         <button type="button" id="btn-adicionar-item-entrada" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
@@ -89,7 +89,7 @@
             
             <div>
                 <label for="entrada-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações</label>
-                <textarea name="entrada-obs" id="entrada-obs" rows="3" class="mt-1 block w-full input-form" placeholder="Qualquer informação adicional sobre esta entrada..."></textarea>
+                <textarea name="entrada-obs" id="entrada-obs" rows="3" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Qualquer informação adicional sobre esta entrada..."></textarea>
             </div>
 
             <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">

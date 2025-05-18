@@ -10,7 +10,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label for="saida-motivo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Motivo da Saída<span class="text-error ml-1">*</span></label>
-                    <select id="saida-motivo" name="saida-motivo" required class="mt-1 block w-full input-form">
+                    <select id="saida-motivo" name="saida-motivo" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                         <option value="">Selecione o motivo...</option>
                         <option value="venda">Venda</option>
                         <option value="uso_interno">Uso Interno</option>
@@ -22,16 +22,16 @@
                 </div>
                 <div>
                     <label for="saida-referencia" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pedido/Referência</label>
-                    <input type="text" name="saida-referencia" id="saida-referencia" class="mt-1 block w-full input-form" placeholder="Nº Pedido, OS, etc.">
+                    <input type="text" name="saida-referencia" id="saida-referencia" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Nº Pedido, OS, etc.">
                 </div>
                 <div>
                     <label for="saida-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data da Saída<span class="text-error ml-1">*</span></label>
-                    <input type="date" name="saida-data" id="saida-data" required class="mt-1 block w-full input-form">
+                    <input type="date" name="saida-data" id="saida-data" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                 </div>
             </div>
             <div>
                 <label for="saida-destino" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Destino / Cliente</label>
-                <input type="text" name="saida-destino" id="saida-destino" class="mt-1 block w-full input-form" placeholder="Nome do cliente, departamento, etc.">
+                <input type="text" name="saida-destino" id="saida-destino" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Nome do cliente, departamento, etc.">
                  </div>
 
 
@@ -41,7 +41,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-3 items-end p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md mb-4">
                     <div class="lg:col-span-2">
                         <label for="item-saida-peca" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Peça<span class="text-error ml-1">*</span> (Estoque: <span id="item-saida-estoque-disponivel">-</span>)</label>
-                        <select id="item-saida-peca" class="mt-1 block w-full input-form input-sm">
+                        <select id="item-saida-peca" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Buscar/Selecionar peça...</option>
                             <option value="peca-P00125" data-estoque="25">P00125 - Filtro de Óleo Scania XT</option>
                             <option value="peca-P00342" data-estoque="3">P00342 - Jogo Pastilhas Freio Volvo FH</option>
@@ -49,11 +49,11 @@
                     </div>
                     <div>
                         <label for="item-saida-quantidade" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Qtd. Saída<span class="text-error ml-1">*</span></label>
-                        <input type="number" id="item-saida-quantidade" min="1" value="1" class="mt-1 block w-full input-form input-sm">
+                        <input type="number" id="item-saida-quantidade" min="1" value="1" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="item-saida-preco-unitario" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Preço Unit. (R$)</label>
-                        <input type="number" step="0.01" id="item-saida-preco-unitario" min="0" class="mt-1 block w-full input-form input-sm" placeholder="0,00 (se venda)">
+                        <input type="number" step="0.01" id="item-saida-preco-unitario" min="0" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="0,00 (se venda)">
                     </div>
                     <div class="lg:col-span-1">
                         <button type="button" id="btn-adicionar-item-saida" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
@@ -93,7 +93,7 @@
             
             <div>
                 <label for="saida-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações</label>
-                <textarea name="saida-obs" id="saida-obs" rows="3" class="mt-1 block w-full input-form" placeholder="Qualquer informação adicional sobre esta saída..."></textarea>
+                <textarea name="saida-obs" id="saida-obs" rows="3" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Qualquer informação adicional sobre esta saída..."></textarea>
             </div>
 
             <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">

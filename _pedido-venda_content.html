@@ -16,7 +16,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                     <div>
                         <label for="pedido-cliente" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cliente<span class="text-error ml-1">*</span></label>
-                        <select id="pedido-cliente" name="pedido-cliente" required class="mt-1 block w-full input-form">
+                        <select id="pedido-cliente" name="pedido-cliente" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Selecione um cliente...</option>
                             <option value="cliente-pf-123">João Pereira da Silva (PF)</option>
                             <option value="cliente-pj-789">Transportadora Veloz Ltda. (PJ)</option>
@@ -24,18 +24,18 @@
                     </div>
                     <div>
                         <label for="pedido-data" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Pedido<span class="text-error ml-1">*</span></label>
-                        <input type="date" name="pedido-data" id="pedido-data" required class="mt-1 block w-full input-form">
+                        <input type="date" name="pedido-data" id="pedido-data" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="pedido-vendedor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vendedor</label>
-                        <select id="pedido-vendedor" name="pedido-vendedor" class="mt-1 block w-full input-form">
+                        <select id="pedido-vendedor" name="pedido-vendedor" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Selecione...</option>
                             <option value="vendedor1">Admin (Vendedor Padrão)</option>
                             </select>
                     </div>
                     <div>
                         <label for="pedido-cond-pagamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Condição de Pagamento<span class="text-error ml-1">*</span></label>
-                        <select id="pedido-cond-pagamento" name="pedido-cond-pagamento" required class="mt-1 block w-full input-form">
+                        <select id="pedido-cond-pagamento" name="pedido-cond-pagamento" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="avista">À Vista</option>
                             <option value="30d">30 Dias</option>
                             <option value="30_60d">30/60 Dias</option>
@@ -45,7 +45,7 @@
                     </div>
                     <div>
                         <label for="pedido-tipo-frete" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Frete</label>
-                        <select id="pedido-tipo-frete" name="pedido-tipo-frete" class="mt-1 block w-full input-form">
+                        <select id="pedido-tipo-frete" name="pedido-tipo-frete" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="cif">CIF (Frete Pago pelo Remetente)</option>
                             <option value="fob">FOB (Frete Pago pelo Destinatário)</option>
                             <option value="retira">Retira no Local</option>
@@ -54,7 +54,7 @@
                     </div>
                      <div>
                         <label for="pedido-valor-frete" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Valor do Frete (R$)</label>
-                        <input type="number" step="0.01" min="0" name="pedido-valor-frete" id="pedido-valor-frete" value="0.00" class="mt-1 block w-full input-form">
+                        <input type="number" step="0.01" min="0" name="pedido-valor-frete" id="pedido-valor-frete" value="0.00" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                 </div>
             </fieldset>
@@ -65,7 +65,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-7 gap-3 items-end p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md mb-4 mt-2">
                     <div class="lg:col-span-2">
                         <label for="item-pedido-peca" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Peça<span class="text-error ml-1">*</span> (Est: <span id="item-pedido-estoque-disponivel">-</span>)</label>
-                        <select id="item-pedido-peca" class="mt-1 block w-full input-form input-sm">
+                        <select id="item-pedido-peca" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                             <option value="">Buscar/Selecionar peça...</option>
                             <option value="peca-P00125" data-estoque="25" data-preco="185.90">P00125 - Filtro de Óleo Scania XT</option>
                             <option value="peca-P00342" data-estoque="3" data-preco="450.00">P00342 - Jogo Pastilhas Freio Volvo FH</option>
@@ -74,15 +74,15 @@
                     </div>
                     <div>
                         <label for="item-pedido-quantidade" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Qtd.<span class="text-error ml-1">*</span></label>
-                        <input type="number" id="item-pedido-quantidade" min="1" value="1" class="mt-1 block w-full input-form input-sm">
+                        <input type="number" id="item-pedido-quantidade" min="1" value="1" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
                     </div>
                     <div>
                         <label for="item-pedido-preco-unitario" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Preço Unit.<span class="text-error ml-1">*</span></label>
-                        <input type="number" step="0.01" id="item-pedido-preco-unitario" min="0" class="mt-1 block w-full input-form input-sm" placeholder="0,00">
+                        <input type="number" step="0.01" id="item-pedido-preco-unitario" min="0" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="0,00">
                     </div>
                      <div>
                         <label for="item-pedido-desconto" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Desc. (%)</label>
-                        <input type="number" step="0.01" id="item-pedido-desconto" min="0" max="100" value="0" class="mt-1 block w-full input-form input-sm" placeholder="0">
+                        <input type="number" step="0.01" id="item-pedido-desconto" min="0" max="100" value="0" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="0">
                     </div>
                     <div class="lg:col-span-1">
                         <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 invisible">Ação</label> <button type="button" id="btn-adicionar-item-pedido" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
@@ -139,7 +139,7 @@
             
             <div>
                 <label for="pedido-obs" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações do Pedido</label>
-                <textarea name="pedido-obs" id="pedido-obs" rows="3" class="mt-1 block w-full input-form" placeholder="Instruções especiais, informações de entrega, etc..."></textarea>
+                <textarea name="pedido-obs" id="pedido-obs" rows="3" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Instruções especiais, informações de entrega, etc..."></textarea>
             </div>
 
             <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
