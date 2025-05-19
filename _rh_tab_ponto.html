@@ -1,0 +1,65 @@
+<div id="ponto-tab-content-container" class="space-y-6">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-0">Controle de Ponto e Frequência</h3>
+        <button onclick="openModalNovaOcorrenciaPonto()" class="px-4 py-2.5 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium flex items-center justify-center">
+            <i class="fas fa-user-clock fa-fw mr-2"></i>Registrar Ocorrência/Ajuste
+        </button>
+    </div>
+
+    <div class="mb-4 p-3 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 items-end">
+            <div>
+                <label for="ponto-filtro-funcionario" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Funcionário<span class="text-error ml-1">*</span></label>
+                <select id="ponto-filtro-funcionario" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                    <option value="">Selecione...</option>
+                    </select>
+            </div>
+            <div>
+                <label for="ponto-filtro-periodo" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Mês/Ano Competência<span class="text-error ml-1">*</span></label>
+                <input type="month" id="ponto-filtro-periodo" required class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+            </div>
+            <button type="button" onclick="carregarEspelhoDePonto()" class="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center justify-center">
+                <i class="fas fa-search fa-fw mr-2"></i>Visualizar Espelho de Ponto
+            </button>
+        </div>
+    </div>
+
+    <div id="espelho-ponto-display-area" class="hidden bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow">
+        <div class="flex justify-between items-center mb-3 border-b pb-2 dark:border-gray-700">
+            <h4 class="text-md font-semibold text-gray-800 dark:text-gray-100">
+                Espelho de Ponto - <span id="espelho-ponto-nome-funcionario" class="text-primary-DEFAULT">NOME</span> (<span id="espelho-ponto-mes-referencia">MÊS/ANO</span>)
+            </h4>
+            <button onclick="exportarEspelhoPonto()" class="text-xs px-3 py-1.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 rounded-md flex items-center">
+                <i class="fas fa-file-export fa-fw mr-1.5"></i>Exportar
+            </button>
+        </div>
+        
+        <div class="overflow-x-auto custom-scrollbar shadow-sm rounded-md border dark:border-gray-600">
+            <table class="min-w-full text-xs">
+                <thead class="bg-gray-100 dark:bg-gray-700">
+                    <tr>
+                        <th class="px-2 py-1.5 text-center">Dia</th>
+                        <th class="px-2 py-1.5 text-center">Entrada 1</th>
+                        <th class="px-2 py-1.5 text-center">Saída 1</th>
+                        <th class="px-2 py-1.5 text-center">Entrada 2</th>
+                        <th class="px-2 py-1.5 text-center">Saída 2</th>
+                        <th class="px-2 py-1.5 text-center">Hrs Trab.</th>
+                        <th class="px-2 py-1.5 text-center">Hrs Extras</th>
+                        <th class="px-2 py-1.5 text-center">Atraso/Falta</th>
+                        <th class="px-2 py-1.5 text-left">Ocorrência</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body-espelho-ponto" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                        <td colspan="9" class="px-3 py-8 text-center text-gray-500 dark:text-gray-400">Selecione o funcionário e o período para visualizar o espelho de ponto.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md">
+            <div><strong>Total Horas Trabalhadas:</strong> <span id="ponto-total-horas-trabalhadas" class="font-semibold">00:00</span></div>
+            <div><strong>Total Horas Extras:</strong> <span id="ponto-total-horas-extras" class="font-semibold text-green-600">00:00</span></div>
+            <div><strong>Saldo Banco de Horas:</strong> <span id="ponto-saldo-banco-horas" class="font-semibold text-blue-600">00:00</span></div>
+        </div>
+    </div>
+</div>

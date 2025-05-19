@@ -1,0 +1,26 @@
+<form id="actual-form-dependente" class="space-y-3">
+    <input type="hidden" name="dep-id" id="dep-id"> <div>
+        <label for="dep-nome" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Nome Completo do Dependente<span class="text-error ml-1">*</span></label>
+        <input type="text" name="dep-nome" id="dep-nome" required class="input-form input-sm">
+    </div>
+    <div>
+        <label for="dep-data-nascimento" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Data de Nascimento</label>
+        <input type="date" name="dep-data-nascimento" id="dep-data-nascimento" class="input-form input-sm">
+    </div>
+    <div>
+        <label for="dep-parentesco" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Parentesco<span class="text-error ml-1">*</span></label>
+        <select name="dep-parentesco" id="dep-parentesco" required class="input-form input-sm">
+            <option value="">Selecione...</option>
+            <option value="filho_a">Filho(a)</option>
+            <option value="conjuge">Cônjuge</option>
+            <option value="companheiro_a">Companheiro(a)</option>
+            <option value="pai_mae">Pai/Mãe</option>
+            <option value="enteado_a">Enteado(a)</option>
+            <option value="outro">Outro</option>
+        </select>
+    </div>
+    <div>
+        <label for="dep-cpf" class="block text-xs font-medium text-gray-700 dark:text-gray-300">CPF do Dependente</label>
+        <input type="text" name="dep-cpf" id="dep-cpf" class="input-form input-sm" placeholder="000.000.000-00">
+    </div>
+</form>

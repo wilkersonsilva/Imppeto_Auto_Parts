@@ -3,8 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imppeto Auto Parts - Painel Administrativo</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <script src="https://cdn.tailwindcss.com"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -28,7 +27,7 @@
                         },
                         success: '#16a34a', // Verde para sucesso
                         warning: '#facc15', // Amarelo para avisos
-                        error: '#dc2626',   // Vermelho para erros // Usado na validação da Curva ABC
+                        error: '#dc2626',   // Vermelho para erros (usado na validação da Curva ABC)
                         info: '#0ea5e9',    // Azul claro para informações
                         gray: { // Paleta de cinzas ajustada
                             50: '#f9fafb',  // Muito claro, quase branco
@@ -44,7 +43,7 @@
                         }
                     },
                     fontFamily: {
-                        // sans: ['Inter', 'sans-serif'], // Exemplo
+                        // sans: ['Inter', 'sans-serif'], // Exemplo se fosse usar fonte customizada
                     },
                     transitionProperty: {
                         'colors': 'background-color, border-color, color, fill, stroke, opacity, transform',
@@ -72,17 +71,19 @@
         .modal { transition: opacity 0.2s ease-out, visibility 0.2s ease-out; }
         .modal-backdrop { background-color: rgba(0, 0, 0, 0.6); }
         .spinner { @apply w-10 h-10 border-4 border-transparent border-t-current rounded-full animate-spin; }
+
+        /* Scrollbars personalizadas (Webkit) */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb {
-            background-color: rgba(156, 163, 175, 0.4);
+            background-color: rgba(156, 163, 175, 0.4); /* Tailwind gray-400 com opacidade */
             border-radius: 10px;
             border: 2px solid transparent;
             background-clip: content-box;
         }
-        ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.6); }
-        html.dark ::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.4); }
-        html.dark ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.7); }
+        ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.6); /* Tailwind gray-500 com opacidade */ }
+        html.dark ::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.4); /* Tailwind gray-600 com opacidade */ }
+        html.dark ::-webkit-scrollbar-thumb:hover { background-color: rgba(107, 114, 128, 0.7); /* Tailwind gray-500 com opacidade */ }
 
         /* Classe base padronizada para inputs, selects, textareas */
         .input-form {
@@ -93,7 +94,7 @@
         }
         /* Estilização específica para selects para garantir boa aparência com a classe .input-form */
         select.input-form {
-            @apply pr-8; /* Adiciona espaço para a seta do select */
+            @apply pr-8; /* Adiciona espaço para a seta do select (Tailwind geralmente lida com a aparência da seta) */
         }
         /* Remove setas de inputs number (opcional) */
         input[type='number']::-webkit-inner-spin-button,
@@ -110,12 +111,14 @@
                 <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
             </div>
         </div>
+
         <div class="flex flex-col flex-1 overflow-hidden">
             <header id="topnav-container" class="flex-shrink-0">
                 <div class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-center shadow-sm">
                     <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
                  </div>
             </header>
+
             <main id="content-area" class="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 bg-gray-100 dark:bg-gray-900">
                 <div class="flex justify-center items-center h-full">
                     <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>

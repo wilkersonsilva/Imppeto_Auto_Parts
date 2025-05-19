@@ -1,0 +1,64 @@
+<div id="funcionarios-tab-content-container"> <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-0">Lista de Funcionários</h3>
+        <button onclick="openModalNovoFuncionario()" class="px-4 py-2.5 bg-primary-DEFAULT hover:bg-primary-dark text-white rounded-md text-sm font-medium flex items-center justify-center">
+            <i class="fas fa-user-plus fa-fw mr-2"></i>Novo Funcionário
+        </button>
+    </div>
+
+    <div class="mb-4 p-3 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <input type="text" id="rh-search-nome-funcionario" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm" placeholder="Buscar por Nome ou Matrícula...">
+            <select id="rh-search-departamento" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                <option value="">Todos os Departamentos</option>
+                <option value="vendas">Vendas</option>
+                <option value="administrativo">Administrativo</option>
+                <option value="estoque">Estoque</option>
+                <option value="financeiro">Financeiro</option>
+                <option value="rh">Recursos Humanos</option>
+                <option value="diretoria">Diretoria</option>
+                <option value="ti">Tecnologia da Informação</option>
+                <option value="marketing">Marketing</option>
+                <option value="operacional">Operacional</option>
+            </select>
+            <select id="rh-search-status-funcionario" class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT sm:text-sm">
+                <option value="ativo">Ativos</option>
+                <option value="inativo">Inativos</option>
+                <option value="">Todos</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto custom-scrollbar shadow rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700/50">
+                <tr>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Matrícula</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nome Completo</th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cargo</th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Departamento</th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Telefone</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="table-body-funcionarios" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                    <td colspan="7" class="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+                        <i class="fas fa-spinner fa-spin fa-lg text-primary-DEFAULT mr-2"></i>Carregando funcionários...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 px-4 py-3 sm:px-0" aria-label="Pagination-Funcionarios">
+        <div class="hidden sm:block">
+          <p class="text-sm text-gray-700 dark:text-gray-300">
+            Mostrando <span class="font-medium" id="func-pag-de">1</span> a <span class="font-medium" id="func-pag-ate">0</span> de <span class="font-medium" id="func-pag-total">0</span> resultados
+          </p>
+        </div>
+        <div class="flex-1 flex justify-between sm:justify-end space-x-2">
+          <button class="relative inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50" disabled>Anterior</button>
+          <button class="relative inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700" disabled>Próximo</button>
+        </div>
+    </nav>
+</div>

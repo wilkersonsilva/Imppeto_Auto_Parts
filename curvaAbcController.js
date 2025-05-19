@@ -1,12 +1,15 @@
 // curvaAbcController.js
-// Data da Última Atualização: 17 de maio de 2025
+// Data da Última Atualização: 18 de maio de 2025 (BRT)
 
 // Chart.js é carregado globalmente via CDN no index.html
 
 let graficoCurvaABCInstance = null;
 let todosOsItensParaAnalise = [];
 let inputClasseA, inputClasseB, btnGerarABC, selectItensGrafico;
+let colunaOrdenadaAtual = 'valorCriterio'; // Coluna padrão para ordenação inicial
+let direcaoOrdenacaoAtual = 'desc'; // Direção padrão para ordenação inicial
 
+// Dados simulados de peças (expandidos para melhor distribuição)
 const pecasSimuladas = [
     { id: 'P001', codigo: 'P001', descricao: 'Motor de Partida Bosch 24V Scania S5', categoria: 'Elétrica', marca: 'Bosch', estoqueAtual: 5, custoMedio: 850.00, qtdVendida90d: 10, valorVendaUnitaria: 1500.00, numPedidos90d: 8 },
     { id: 'P002', codigo: 'P002', descricao: 'Alternador Valeo 120A Volvo FH', categoria: 'Elétrica', marca: 'Valeo', estoqueAtual: 8, custoMedio: 650.00, qtdVendida90d: 15, valorVendaUnitaria: 900.00, numPedidos90d: 12 },
@@ -35,8 +38,11 @@ const pecasSimuladas = [
     { id: 'P025', codigo: 'P025', descricao: 'Desengripante Spray Lata 300ml', categoria: 'Lubrificantes', marca: 'WD-40', estoqueAtual: 40, custoMedio: 18.00, qtdVendida90d: 50, valorVendaUnitaria: 28.00, numPedidos90d: 35 }
 ];
 
+/**
+ * Inicializa a página da Curva ABC.
+ */
 export function initializeCurvaABC() {
-    console.log("Inicializando Curva ABC (com interatividade no gráfico)...");
+    console.log("Inicializando Curva ABC (com interatividade no gráfico e ordenação de tabela)...");
     btnGerarABC = document.getElementById('btn-gerar-abc');
     const criterioSelect = document.getElementById('abc-criterio');
     const periodoSelect = document.getElementById('abc-periodo');
@@ -86,6 +92,26 @@ export function initializeCurvaABC() {
             }
         });
     }
+
+    // Adicionar listeners para os cabeçalhos da tabela de ordenação
+    const ths = document.querySelectorAll('#abc-results-container thead th[data-column]');
+    ths.forEach(th => {
+        th.addEventListener('click', () => {
+            const colunaSelecionada = th.getAttribute('data-column');
+            if (!colunaSelecionada) return; // Se não for uma coluna ordenável
+
+            if (colunaOrdenadaAtual === colunaSelecionada) {
+                direcaoOrdenacaoAtual = direcaoOrdenacaoAtual === 'asc' ? 'desc' : 'asc';
+            } else {
+                colunaOrdenadaAtual = colunaSelecionada;
+                direcaoOrdenacaoAtual = 'asc'; // Padrão ascendente para nova coluna
+            }
+            ordenarErenderizarTabela();
+            atualizarIconesOrdenacao(ths);
+        });
+    });
+
+
     document.getElementById('abc-results-container').classList.add('hidden');
     document.getElementById('abc-loading').classList.add('hidden');
     document.getElementById('abc-no-data').classList.add('hidden');
@@ -196,10 +222,14 @@ async function gerarAnaliseABC() {
         return;
     }
 
-    dadosProcessados.sort((a, b) => b.valorCriterio - a.valorCriterio);
+    // Ordenação inicial (padrão) antes da classificação
+    colunaOrdenadaAtual = 'valorCriterio'; // Define a ordenação padrão para a primeira geração
+    direcaoOrdenacaoAtual = 'desc';
+    dadosProcessados.sort((a, b) => b.valorCriterio - a.valorCriterio); // Ordena por valorCriterio desc
+
     const valorTotalGlobal = dadosProcessados.reduce((sum, item) => sum + item.valorCriterio, 0);
     let acumuladoPercentual = 0;
-    todosOsItensParaAnalise = dadosProcessados.map(item => {
+    todosOsItensParaAnalise = dadosProcessados.map(item => { // Usa dadosProcessados já ordenados
         const percentualIndividual = valorTotalGlobal > 0 ? (item.valorCriterio / valorTotalGlobal) : 0;
         acumuladoPercentual += percentualIndividual;
         let classe = 'C';
@@ -212,7 +242,9 @@ async function gerarAnaliseABC() {
     renderizarResumo(todosOsItensParaAnalise, valorTotalGlobal);
     const itensParaVisualizarNoGrafico = getItensParaGrafico();
     renderizarGrafico(itensParaVisualizarNoGrafico, todosOsItensParaAnalise);
-    renderizarTabela(todosOsItensParaAnalise, criterio);
+    renderizarTabela(todosOsItensParaAnalise, criterio); // Renderiza com a ordenação padrão
+    atualizarIconesOrdenacao(document.querySelectorAll('#abc-results-container thead th[data-column]')); // Atualiza ícones para ordenação padrão
+
 
     document.getElementById('abc-loading').classList.add('hidden');
     document.getElementById('abc-results-container').classList.remove('hidden');
@@ -239,15 +271,12 @@ function renderizarGrafico(itensParaGraficoNoVisual, todosOsItensClassificados) 
     const canvas = document.getElementById('grafico-curva-abc');
     if (!canvas) { console.error("Elemento canvas #grafico-curva-abc não encontrado."); return; }
     const ctx = canvas.getContext('2d');
-
     if (graficoCurvaABCInstance) graficoCurvaABCInstance.destroy();
-
     const criterioSelecionadoValue = document.getElementById('abc-criterio').value;
     const isCurrency = ['valor_total_vendas', 'valor_total_estoque', 'margem_lucro_total'].includes(criterioSelecionadoValue);
     const labels = itensParaGraficoNoVisual.map(item => item.codigo);
     const valores = itensParaGraficoNoVisual.map(item => item.valorCriterio);
     const acumulados = itensParaGraficoNoVisual.map(item => item.acumuladoPercentual * 100);
-
     const isDarkMode = document.documentElement.classList.contains('dark');
     const gridColor = isDarkMode ? 'rgba(100, 116, 139, 0.15)' : 'rgba(203, 213, 225, 0.4)';
     const labelColor = isDarkMode ? 'rgba(203, 213, 225, 0.8)' : 'rgba(55, 65, 81, 0.8)';
@@ -265,11 +294,10 @@ function renderizarGrafico(itensParaGraficoNoVisual, todosOsItensClassificados) 
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            // Adicionando o onClick para interatividade
             onClick: (event, elements) => {
                 if (elements.length > 0) {
                     const clickedElementIndex = elements[0].index;
-                    const itemClicado = itensParaGraficoNoVisual[clickedElementIndex]; // Pega da lista usada para plotar
+                    const itemClicado = itensParaGraficoNoVisual[clickedElementIndex];
                     if (itemClicado) {
                         console.log("Item clicado no gráfico:", itemClicado.codigo, itemClicado.descricao);
                         destacarLinhaNaTabelaABC(itemClicado.codigo);
@@ -310,38 +338,52 @@ function renderizarGrafico(itensParaGraficoNoVisual, todosOsItensClassificados) 
     });
 }
 
-// Nova função para destacar e rolar para a linha na tabela
 function destacarLinhaNaTabelaABC(codigoPeca) {
     const tbody = document.getElementById('abc-table-body');
     if (!tbody) return;
-
-    // Remove destaque anterior
     tbody.querySelectorAll('tr.ring-2').forEach(row => {
-        row.classList.remove('ring-2', 'ring-primary-DEFAULT', 'dark:ring-primary-light', 'transition-all', 'duration-300', 'scale-105');
-        row.style.transform = ''; // Reset transform for subsequent highlights
+        row.classList.remove('ring-2', 'ring-primary-DEFAULT', 'dark:ring-primary-light', 'transition-all', 'duration-300');
+        row.style.transform = '';
     });
-
     const linhas = tbody.getElementsByTagName('tr');
     for (let i = 0; i < linhas.length; i++) {
-        const celulaCodigo = linhas[i].cells[1]; // A célula do código da peça é a segunda (índice 1)
+        const celulaCodigo = linhas[i].cells[1];
         if (celulaCodigo && celulaCodigo.textContent === codigoPeca) {
             const linhaAlvo = linhas[i];
             linhaAlvo.classList.add('ring-2', 'ring-primary-DEFAULT', 'dark:ring-primary-light', 'transition-all', 'duration-300');
-            
-            // Adiciona um pequeno efeito de escala e depois remove para "piscar"
             linhaAlvo.style.transform = 'scale(1.02)';
-            setTimeout(() => {
-                 if (linhaAlvo.classList.contains('ring-2')) { // Só remove o scale se ainda estiver destacada
-                    linhaAlvo.style.transform = 'scale(1)';
-                 }
-            }, 300);
-
-
-            // Rolar para a linha
+            setTimeout(() => { if (linhaAlvo.classList.contains('ring-2')) linhaAlvo.style.transform = 'scale(1)'; }, 300);
             linhaAlvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
             break;
         }
     }
+}
+
+function ordenarErenderizarTabela() {
+    if (!todosOsItensParaAnalise || todosOsItensParaAnalise.length === 0) return;
+    const criterio = document.getElementById('abc-criterio').value;
+    todosOsItensParaAnalise.sort((a, b) => {
+        let valA = a[colunaOrdenadaAtual];
+        let valB = b[colunaOrdenadaAtual];
+        if (typeof valA === 'string') {
+            valA = valA.toLowerCase(); valB = valB.toLowerCase();
+        }
+        if (valA < valB) return direcaoOrdenacaoAtual === 'asc' ? -1 : 1;
+        if (valA > valB) return direcaoOrdenacaoAtual === 'asc' ? 1 : -1;
+        return 0;
+    });
+    renderizarTabela(todosOsItensParaAnalise, criterio);
+}
+
+function atualizarIconesOrdenacao(ths) {
+    ths.forEach(th => {
+        const sortIconSpan = th.querySelector('.sort-icon');
+        if (!sortIconSpan) return;
+        sortIconSpan.innerHTML = '';
+        if (th.getAttribute('data-column') === colunaOrdenadaAtual) {
+            sortIconSpan.innerHTML = direcaoOrdenacaoAtual === 'asc' ? ' <i class="fas fa-arrow-up text-xs ml-1"></i>' : ' <i class="fas fa-arrow-down text-xs ml-1"></i>';
+        }
+    });
 }
 
 function renderizarTabela(itensClassificados, criterioValue) {
@@ -353,7 +395,7 @@ function renderizarTabela(itensClassificados, criterioValue) {
     const isCurrency = ['valor_total_vendas', 'valor_total_estoque', 'margem_lucro_total'].includes(criterioValue);
     tbody.innerHTML = '';
     if (itensClassificados.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-gray-500 dark:text-gray-400">Nenhum item para exibir.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center p-8 text-gray-500 dark:text-gray-400">Nenhum item para exibir.</td></tr>`;
         return;
     }
     itensClassificados.forEach(item => {
@@ -362,7 +404,6 @@ function renderizarTabela(itensClassificados, criterioValue) {
         else if (item.classe === 'B') { classeBg = 'bg-yellow-50 dark:bg-yellow-800/20'; classeText = 'text-yellow-600 dark:text-yellow-300 font-medium'; }
         else { classeBg = 'bg-red-50 dark:bg-red-800/20'; classeText = 'text-red-600 dark:text-red-300'; }
         const tr = document.createElement('tr');
-        // Adicionar um ID único à linha para facilitar a seleção, se necessário, embora vamos usar o conteúdo da célula do código
         tr.setAttribute('data-codigo-peca', item.codigo);
         tr.className = `${classeBg} hover:bg-gray-100 dark:hover:bg-gray-700/40`;
         tr.innerHTML = `
@@ -373,6 +414,11 @@ function renderizarTabela(itensClassificados, criterioValue) {
             <td class="px-3 py-2.5 whitespace-nowrap text-sm text-right text-gray-500 dark:text-gray-400">${(item.percentualIndividual * 100).toFixed(2)}%</td>
             <td class="px-3 py-2.5 whitespace-nowrap text-sm text-right text-gray-500 dark:text-gray-400">${(item.acumuladoPercentual * 100).toFixed(2)}%</td>
             <td class="px-3 py-2.5 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">${item.estoqueAtual !== undefined ? item.estoqueAtual.toLocaleString('pt-BR') : '-'}</td>
+            <td class="px-3 py-2.5 whitespace-nowrap text-center text-sm space-x-1">
+                <button onclick="acaoVerDetalhesPecaABC('${item.id}', '${item.codigo}')" class="p-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" title="Ver Detalhes da Peça"><i class="fas fa-eye fa-fw"></i></button>
+                <button onclick="acaoVerEstoquePecaABC('${item.id}', '${item.codigo}')" class="p-1 text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300" title="Ver no Inventário"><i class="fas fa-boxes fa-fw"></i></button>
+                ${item.classe === 'A' || item.classe === 'B' ? `<button onclick="acaoSugerirCompraPecaABC('${item.id}', '${item.codigo}')" class="p-1 text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300" title="Sugerir Compra"><i class="fas fa-cart-plus fa-fw"></i></button>` : ''}
+            </td>
         `;
         tbody.appendChild(tr);
     });
@@ -385,9 +431,7 @@ function filtrarTabelaABC() {
     let firstRowIsPlaceholder = tableRows.length > 0 && tableRows[0].cells.length === 1 && tableRows[0].cells[0].getAttribute('colspan');
     tableRows.forEach(row => {
         if (row.classList.contains('no-results-message') || (row.cells.length === 1 && row.cells[0].getAttribute('colspan'))) {
-             // Não esconde a linha de "nenhum resultado" ou placeholder inicial durante a filtragem ativa
-            if(!searchTerm) row.style.display = 'none'; // Esconde se a busca for limpa e for placeholder
-            return;
+            if(!searchTerm) row.style.display = 'none'; return;
         }
         const codigo = row.cells[1]?.textContent.toLowerCase() || '';
         const descricao = row.cells[2]?.textContent.toLowerCase() || '';
@@ -402,7 +446,7 @@ function filtrarTabelaABC() {
     if (!hasVisibleRows && searchTerm && !firstRowIsPlaceholder) {
         if (!noResultsRow) {
             noResultsRow = tbody.insertRow(); noResultsRow.className = 'no-results-message';
-            const cell = noResultsRow.insertCell(); cell.colSpan = 7;
+            const cell = noResultsRow.insertCell(); cell.colSpan = 8;
             cell.className = 'text-center p-8 text-gray-500 dark:text-gray-400';
             cell.textContent = 'Nenhum item corresponde à sua busca.';
         }
@@ -410,6 +454,19 @@ function filtrarTabelaABC() {
     } else if (noResultsRow) {
         noResultsRow.style.display = 'none';
     }
+}
+
+export function acaoVerDetalhesPecaABC(pecaId, codigoPeca) {
+    console.log(`Ação: Ver Detalhes da Peça ID: ${pecaId}, Código: ${codigoPeca}`);
+    alert(`Ação: Ver Detalhes da Peça ${codigoPeca}. (Funcionalidade a ser implementada)`);
+}
+export function acaoVerEstoquePecaABC(pecaId, codigoPeca) {
+    console.log(`Ação: Ver no Inventário Peça ID: ${pecaId}, Código: ${codigoPeca}`);
+    alert(`Ação: Ver no Inventário a Peça ${codigoPeca}. (Funcionalidade a ser implementada)`);
+}
+export function acaoSugerirCompraPecaABC(pecaId, codigoPeca) {
+    console.log(`Ação: Sugerir Compra para Peça ID: ${pecaId}, Código: ${codigoPeca}`);
+    alert(`Ação: Sugerir Compra para Peça ${codigoPeca}. (Funcionalidade a ser implementada)`);
 }
 
 export function exportarAnaliseABC() {

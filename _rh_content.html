@@ -1,0 +1,46 @@
+<div class="animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-0" id="rh-module-title">
+                Recursos Humanos
+            </h2>
+            </div>
+
+        <div data-rh-tab-container> <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist" id="rh-tab-buttons">
+                    <li class="mr-2" role="presentation">
+                        <button class="rh-tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab-target="rh-funcionarios-tab-content-area" data-tab-html="_rh_tab_funcionarios.html" role="tab" aria-selected="true">
+                            <i class="fas fa-id-card-alt fa-fw mr-2"></i>Funcionários
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="rh-tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab-target="rh-folha-pagamento-tab-content-area" data-tab-html="_rh_tab_folha_pagamento.html" role="tab" aria-selected="false">
+                            <i class="fas fa-file-invoice-dollar fa-fw mr-2"></i>Folha de Pagamento
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="rh-tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" 
+                                data-tab-target="rh-ferias-licencas-tab-content-area" 
+                                data-tab-html="_rh_tab_ferias_licencas.html" role="tab" 
+                                aria-selected="false">
+                            <i class="fas fa-plane-departure fa-fw mr-2"></i>Férias e Licenças
+                        </button>
+                    </li>
+                     <li class="mr-2" role="presentation">
+                        <button class="rh-tab-button inline-block p-4 border-b-2 rounded-t-lg focus:outline-none" data-tab-target="rh-ponto-tab-content-area" data-tab-html="_rh_tab_ponto.html" role="tab" aria-selected="false">
+                            <i class="fas fa-clock fa-fw mr-2"></i>Controle de Ponto
+                        </button>
+                    </li>
+                    </ul>
+            </div>
+
+            <div id="rh-tab-content-area" class="mt-4">
+                <div class="flex justify-center items-center h-64">
+                    <div class="spinner text-primary-DEFAULT dark:text-primary-light"></div>
+                    <p class="ml-3 text-gray-500 dark:text-gray-400">Carregando conteúdo da aba...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>

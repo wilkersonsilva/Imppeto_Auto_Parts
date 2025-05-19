@@ -1,0 +1,49 @@
+<form id="actual-form-ferias-licenca" class="space-y-4">
+    <input type="hidden" name="fl-id" id="fl-id"> <div>
+        <label for="fl-funcionario" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Funcionário<span class="text-error ml-1">*</span></label>
+        <select id="fl-funcionario" name="fl-funcionario" required class="input-form">
+            <option value="">Selecione...</option>
+            </select>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            <label for="fl-tipo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo<span class="text-error ml-1">*</span></label>
+            <select id="fl-tipo" name="fl-tipo" required class="input-form">
+                <option value="">Selecione...</option>
+                <option value="ferias">Férias</option>
+                <option value="licenca_medica">Licença Médica</option>
+                <option value="licenca_maternidade">Licença Maternidade</option>
+                <option value="licenca_paternidade">Licença Paternidade</option>
+                <option value="licenca_nojo">Licença Nojo (Luto)</option>
+                <option value="licenca_gala">Licença Gala (Casamento)</option>
+                <option value="outra">Outra Licença Remunerada</option>
+                <option value="nao_remunerada">Licença Não Remunerada</option>
+            </select>
+        </div>
+        <div>
+            <label for="fl-status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status Inicial<span class="text-error ml-1">*</span></label>
+            <select id="fl-status" name="fl-status" required class="input-form">
+                <option value="programada">Programada</option>
+                <option value="aprovada">Aprovada (Inicia Imediatamente)</option>
+                </select>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+            <label for="fl-data-inicio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data Início<span class="text-error ml-1">*</span></label>
+            <input type="date" name="fl-data-inicio" id="fl-data-inicio" required class="input-form">
+        </div>
+        <div>
+            <label for="fl-data-fim" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data Fim<span class="text-error ml-1">*</span></label>
+            <input type="date" name="fl-data-fim" id="fl-data-fim" required class="input-form">
+        </div>
+        <div>
+            <label for="fl-dias" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total de Dias</label>
+            <input type="number" name="fl-dias" id="fl-dias" readonly class="input-form bg-gray-100 dark:bg-gray-700/50 cursor-not-allowed" placeholder="(calculado)">
+        </div>
+    </div>
+    <div>
+        <label for="fl-observacoes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Observações</label>
+        <textarea name="fl-observacoes" id="fl-observacoes" rows="3" class="input-form" placeholder="Motivo da licença, detalhes adicionais..."></textarea>
+    </div>
+</form>

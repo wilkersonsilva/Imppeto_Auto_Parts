@@ -1,5 +1,5 @@
 // contentLoader.js
-// Data da Última Atualização: 16 de maio de 2025
+// Data da Última Atualização: 18 de maio de 2025 (BRT)
 
 import { loadHTML, updatePageTitle, highlightActiveSidebarLink, initializeTabs } from './uiUtils.js';
 
@@ -19,6 +19,7 @@ import { initializeComissoes } from './comissoesController.js';
 import { initializeUsuariosPerfis } from './usuariosController.js';
 import { initializePreferencias } from './preferenciasController.js';
 import { initializeCurvaABC } from './curvaAbcController.js';
+import { initializeRh } from './rhController.js'; // Importação do novo controller de RH
 
 
 // --- Estado do Conteúdo ---
@@ -38,7 +39,8 @@ export const sectionTitles = {
     'emissao-nf': 'Emissão de Nota Fiscal Eletrônica (NF-e)',
     'comissoes': 'Gerenciamento de Comissões',
     'usuarios': 'Gerenciamento de Usuários e Perfis',
-    'preferencias': 'Preferências da Loja / Empresa'
+    'preferencias': 'Preferências da Loja / Empresa',
+    'rh': 'Recursos Humanos' // Título para a nova seção de RH
 };
 
 export function getCurrentSection() { return currentSection; }
@@ -80,7 +82,6 @@ export async function loadContent(sectionId) {
                 break;
             case 'clientes':
                 // Clientes usa initializeTabs para suas abas PF/PJ.
-                // Se houver mais inicializações, criar initializeClientes() em clientesController.js e chamar aqui.
                 if (typeof initializeTabs === 'function') initializeTabs();
                 break;
             case 'pecas':
@@ -120,6 +121,9 @@ export async function loadContent(sectionId) {
             case 'curva-abc':
                 if (typeof initializeCurvaABC === 'function') initializeCurvaABC();
                 break;
+            case 'rh': // Novo case para o módulo de RH
+                if (typeof initializeRh === 'function') initializeRh();
+                break;
             default:
                 console.warn(`Nenhuma função de inicialização definida para a seção: ${sectionId}`);
                 // Ainda assim, tenta inicializar abas genéricas se o conteúdo tiver data-tab-container
@@ -135,6 +139,5 @@ export async function loadContent(sectionId) {
         contentArea.scrollTop = 0; // Garante que o conteúdo comece do topo
     } else {
         // A mensagem de erro já foi definida por loadHTML
-        // updatePageTitle('Erro ao Carregar'); // Opcional, loadHTML já lida com o título do erro na área de conteúdo.
     }
 }

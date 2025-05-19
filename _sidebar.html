@@ -2,7 +2,8 @@
 
     <div class="flex items-center justify-center h-16 px-4 bg-primary-DEFAULT dark:bg-primary-dark flex-shrink-0 shadow-sm">
         <div class="flex items-center">
-            <img src="logoImpetto.svg" alt="Logo Imppeto Auto Parts" class="h-10 w-auto mr-2.5"> <span class="text-white font-semibold text-lg tracking-tight">Imppeto Auto</span>
+            <img src="logoImpetto.svg" alt="Logo Imppeto Auto Parts" class="h-10 w-auto mr-2.5">
+            <span class="text-white font-semibold text-lg tracking-tight">Imppeto Auto</span>
         </div>
     </div>
 
@@ -56,6 +57,12 @@
                 </div>
             </div>
 
+            <div>
+                <a href="#" onclick="loadContent('rh'); return false;" class="flex items-center px-3 py-2.5 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 group sidebar-link" data-section="rh">
+                    <i class="fas fa-users-cog fa-fw mr-3 w-5 text-center text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400 transition-colors duration-150"></i>
+                    Recursos Humanos
+                </a>
+            </div>
             <div class="dropdown relative">
                 <button class="flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <i class="fas fa-cog fa-fw mr-3 w-5 text-center text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400 transition-colors duration-150"></i>
@@ -72,8 +79,11 @@
 
     <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
         <div class="flex items-center">
-            <img class="w-10 h-10 rounded-full shadow-md object-cover" src="https://via.placeholder.com/40x40.png?text=AI" alt="User avatar"> <div class="ml-3">
-                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">Admin Imppeto</p> <p class="text-xs text-gray-500 dark:text-gray-400">Administrador</p> </div>
+            <img id="sidebar-user-avatar" class="w-10 h-10 rounded-full shadow-md object-cover" src="https://via.placeholder.com/40x40.png?text=UP" alt="User avatar">
+            <div class="ml-3">
+                <p id="sidebar-user-name" class="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate" title="Nome do Usuário">Carregando...</p>
+                <p id="sidebar-user-profile" class="text-xs text-gray-500 dark:text-gray-400 truncate" title="Perfil do Usuário">Carregando...</p>
+            </div>
             <button onclick="logout()" title="Sair do Sistema" class="ml-auto p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light dark:focus:ring-offset-gray-800 dark:focus:ring-primary-dark transition-colors duration-150">
                 <i class="fas fa-sign-out-alt"></i>
             </button>
